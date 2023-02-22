@@ -70,12 +70,12 @@ func (a AccountRepositoryImpl) ReadAccountAll() ([]gormModel.Account, error) {
 }
 
 func (a AccountRepositoryImpl) LoginWithEmail(account entity.Account) (models.Account, error) {
-	gormMediaType := &gormModel.Account{}
-	if err := a.GormDB.Where("email = ? AND password = ? ", account.Email, account.Password).First(&gormMediaType).Error; err != nil {
-		logger.Log.Error(fmt.Errorf("failed to update Account email: %s", account.Email))
+	gormAccount := &gormModel.Account{}
+	if err := a.GormDB.Where("email = ? AND password = ? ", account.Email, account.Password).First(&gormAccount).Error; err != nil {
+		logger.Log.Error(fmt.Errorf("failed to login with Account email: %s : %s", account.Email, err))
 		return nil, err
 	}
-	return gormMediaType, nil
+	return gormAccount, nil
 }
 
 func (a AccountRepositoryImpl) LoginWithUserName(account entity.Account) (models.Account, error) {

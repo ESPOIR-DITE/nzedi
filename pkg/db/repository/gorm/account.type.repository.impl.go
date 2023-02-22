@@ -44,9 +44,13 @@ func (a AccountTypeRepositoryImpl) ReadAccountType(id int) (models.AccountType, 
 	return gormAccountType, nil
 }
 
-func (a AccountTypeRepositoryImpl) ReadAccountTypeWithAccountId(id string) (models.AccountType, error) {
-	//TODO implement me
-	panic("implement me")
+func (a AccountTypeRepositoryImpl) ReadAccountTypeWithAccountId(id int) (models.AccountType, error) {
+	gormAccountType := &gormModel.AccountType{}
+	if err := a.GormDB.Where("account_id = ?", id).First(&gormAccountType).Error; err != nil {
+		logger.Log.Error(fmt.Errorf("failed to get account Type with accountId: %d : %s", id, err))
+		return nil, err
+	}
+	return gormAccountType, nil
 }
 
 func (a AccountTypeRepositoryImpl) UpdateAccountType(accountState entity.AccountType) (models.AccountType, error) {
@@ -67,7 +71,11 @@ func (a AccountTypeRepositoryImpl) DeleteAccountType(accountState entity.Account
 	return true, nil
 }
 
-func (a AccountTypeRepositoryImpl) ReadAccountTypeAll() ([]models.AccountType, error) {
-	//TODO implement me
-	panic("implement me")
+func (a AccountTypeRepositoryImpl) ReadAccountTypeAll() ([]gormModel.AccountType, error) {
+	gormAccountType := []gormModel.AccountType{}
+	if err := a.GormDB.Find(&gormAccountType).Error; err != nil {
+		logger.Log.Error(fmt.Errorf("failed to reads AccountTypes"))
+		return nil, err
+	}
+	return gormAccountType, nil
 }

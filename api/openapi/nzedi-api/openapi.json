@@ -1083,7 +1083,7 @@
         "description": "Retreive an existing user type with an id."
       }
     },
-    "/comany": {
+    "/company": {
       "get": {
         "summary": "Company get endpoint",
         "tags": [],

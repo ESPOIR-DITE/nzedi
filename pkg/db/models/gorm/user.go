@@ -12,6 +12,8 @@ type User struct {
 	DateOfBirth time.Time `sql:"date_of_birth"`
 	Firstname   string
 	Lastname    string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 func (u User) GetUser() *entity.User {

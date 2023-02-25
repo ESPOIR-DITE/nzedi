@@ -1,8 +1,8 @@
 package factory
 
 import (
-	spec "nzedi/api/server/nzedi-api"
-	"nzedi/pkg/entity"
+	spec "github.com/ESPOIR-DITE/nzedi.git/api/server/nzedi-api"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/entity"
 )
 
 type CompanyFactory interface {
@@ -13,8 +13,12 @@ type CompanyFactoryImpl struct {
 }
 
 func (c CompanyFactoryImpl) CreateCompany(body spec.Company) (*entity.Company, error) {
-	//TODO implement me
-	panic("implement me")
+	return &entity.Company{
+		Id:      body.Id,
+		Manager: body.Manager,
+		Name:    body.Name,
+		Url:     body.Url,
+	}, nil
 }
 
 func NewCompanyFactoryImpl() *CompanyFactoryImpl {

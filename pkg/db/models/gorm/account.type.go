@@ -15,9 +15,13 @@ type AccountType struct {
 	UpdatedAt    time.Time
 }
 
-func (a AccountType) GetAccountType() *entity.Account {
-	//TODO implement me
-	panic("implement me")
+func (a AccountType) GetAccountType() *entity.AccountType {
+	return &entity.AccountType{
+		Id:           a.Id,
+		AccountId:    a.AccountId,
+		UserTypeId:   a.UserTypeId,
+		AccountState: a.AccountState,
+	}
 }
 
 var _ models.AccountType = AccountType{}

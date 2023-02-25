@@ -60,9 +60,9 @@ type Company struct {
 
 // User defines model for User.
 type User struct {
-	AccountId   int                 `json:"accountId"`
-	DateOfBirth *openapi_types.Date `json:"dateOfBirth,omitempty"`
-	FirstName   string              `json:"firstName"`
+	AccountId   int       `json:"accountId"`
+	DateOfBirth time.Time `json:"dateOfBirth,omitempty"`
+	FirstName   string    `json:"firstName"`
 
 	// Unique identifier for the given user.
 	Id       int    `json:"id"`
@@ -5210,4 +5210,3 @@ func GetSwagger() (swagger *openapi3.T, err error) {
 	}
 	return
 }
-

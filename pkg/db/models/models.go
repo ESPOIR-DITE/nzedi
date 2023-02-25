@@ -13,7 +13,7 @@ type AccountState interface {
 }
 
 type AccountType interface {
-	GetAccountType() *entity.Account
+	GetAccountType() *entity.AccountType
 }
 
 type Company interface {

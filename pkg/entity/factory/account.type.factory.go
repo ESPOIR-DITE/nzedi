@@ -1,8 +1,8 @@
 package factory
 
 import (
-	spec "nzedi/api/server/nzedi-api"
-	"nzedi/pkg/entity"
+	spec "github.com/ESPOIR-DITE/nzedi.git/api/server/nzedi-api"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/entity"
 )
 
 type AccountType interface {
@@ -13,8 +13,12 @@ type AccountTypeImpl struct {
 }
 
 func (a AccountTypeImpl) CreateAccountType(body spec.AccountType) (*entity.AccountType, error) {
-	//TODO implement me
-	panic("implement me")
+	return &entity.AccountType{
+		Id:           body.Id,
+		AccountId:    body.AccountId,
+		AccountState: body.AccountState,
+		UserTypeId:   body.UserTypeId,
+	}, nil
 }
 
 func NewAccountTypeImpl() *AccountTypeImpl {

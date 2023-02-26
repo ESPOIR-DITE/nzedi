@@ -20,3 +20,7 @@ func (u UserType) GetUserType() *entity.UserType {
 }
 
 var _ models.UserType = UserType{}
+
+func (UserType) TableName() string {
+	return "user_type"
+}

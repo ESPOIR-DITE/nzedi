@@ -2,9 +2,10 @@ package server
 
 import (
 	"fmt"
-	spec "github.com/ESPOIR-DITE/ditkay-eshop/api/server/ditkay-eshop-api"
-	"github.com/ESPOIR-DITE/ditkay-eshop/pkg/config"
-	"github.com/ESPOIR-DITE/ditkay-eshop/pkg/logger"
+	spec "github.com/ESPOIR-DITE/nzedi.git/api/server/nzedi-api"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/config"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
+
 	"net/http"
 
 	"github.com/deepmap/oapi-codegen/pkg/middleware"

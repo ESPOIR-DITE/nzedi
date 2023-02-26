@@ -6,13 +6,13 @@ import (
 )
 
 type AccountType interface {
-	CreateAccountType(body spec.AccountType) (*entity.AccountType, error)
+	CreateAccountTypeFactory(body spec.AccountType) (*entity.AccountType, error)
 }
 
-type AccountTypeImpl struct {
+type AccountTypeFactoryImpl struct {
 }
 
-func (a AccountTypeImpl) CreateAccountType(body spec.AccountType) (*entity.AccountType, error) {
+func (a AccountTypeFactoryImpl) CreateAccountTypeFactory(body spec.AccountType) (*entity.AccountType, error) {
 	return &entity.AccountType{
 		Id:           body.Id,
 		AccountId:    body.AccountId,
@@ -21,8 +21,8 @@ func (a AccountTypeImpl) CreateAccountType(body spec.AccountType) (*entity.Accou
 	}, nil
 }
 
-func NewAccountTypeImpl() *AccountTypeImpl {
-	return &AccountTypeImpl{}
+func NewAccountTypeFactoryImpl() *AccountTypeFactoryImpl {
+	return &AccountTypeFactoryImpl{}
 }
 
-var _ AccountType = &AccountTypeImpl{}
+var _ AccountType = &AccountTypeFactoryImpl{}

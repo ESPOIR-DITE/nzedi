@@ -24,3 +24,7 @@ func (a Account) GetAccount() *entity.Account {
 }
 
 var _ models.Account = &Account{}
+
+func (Account) TableName() string {
+	return "account"
+}

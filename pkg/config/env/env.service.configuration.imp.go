@@ -1,6 +1,6 @@
 package env
 
-import "github.com/ESPOIR-DITE/ditkay-eshop/pkg/config"
+import "github.com/ESPOIR-DITE/nzedi.git/pkg/config"
 
 type EnvServiceConfiguration struct {
 	EnvServiceAppConfig AppConfig

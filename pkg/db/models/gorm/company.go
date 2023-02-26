@@ -21,3 +21,7 @@ func (c Company) GetCompany() *entity.Company {
 }
 
 var _ models.Company = Company{}
+
+func (Company) TableName() string {
+	return "company"
+}

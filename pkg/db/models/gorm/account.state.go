@@ -20,3 +20,7 @@ func (a AccountState) GetAccountState() *entity.AccountState {
 }
 
 var _ models.AccountState = AccountState{}
+
+func (AccountState) TableName() string {
+	return "account_state"
+}

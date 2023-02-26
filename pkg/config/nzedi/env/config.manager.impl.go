@@ -1,8 +1,8 @@
 package env
 
 import (
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/config/nzedi"
 	"github.com/kelseyhightower/envconfig"
-	"nzedi/pkg/config/nzedi"
 )
 
 type NzediApiConfigManagerImpl struct{}

@@ -32,5 +32,11 @@ func Run(ConfigManager nzedi.ConfigManager) int {
 		logger.Log.Fatalf("fail to run migration: %s", err)
 		return 4
 	}
-	httpServer := wire()
+	httpServer := wire(config, gormDB)
+
+	if err = httpServer.Start(); err != nil {
+		logger.Log.Fatal(err)
+		return 1
+	}
+	return 0
 }

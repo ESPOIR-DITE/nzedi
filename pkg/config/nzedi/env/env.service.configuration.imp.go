@@ -1,8 +1,8 @@
 package env
 
 import (
-	"github.com/ESPOIR-DITE/ditkay-eshop/pkg/config"
-	"github.com/ESPOIR-DITE/ditkay-eshop/pkg/config/env"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/config"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/config/env"
 )
 
 type EshopEnvServiceConfiguration struct {

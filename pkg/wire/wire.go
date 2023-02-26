@@ -4,6 +4,7 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/config"
 	factory2 "github.com/ESPOIR-DITE/nzedi.git/pkg/db/models/gorm/factory"
 	gorm2 "github.com/ESPOIR-DITE/nzedi.git/pkg/db/repository/gorm"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/entity/factory"
 	controller2 "github.com/ESPOIR-DITE/nzedi.git/pkg/http/controller"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/http/server"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/service/impl"
@@ -33,6 +34,13 @@ func wire(config config.ServiceConfiguration, db *gorm.DB) server.HttpServer {
 	userTypeService := impl.NewUserTypeServiceImpl(userTypeRepository)
 	userService := impl.NewUserServiceImpl(userRepository)
 
+	accountFactoryImpl := factory.NewAccountFactoryImpl()
+	accountTypeFactoryImpl := factory.NewAccountTypeFactoryImpl()
+	accountStateFactoryImpl := factory.NewAccountStateFactoryImpl()
+	companyFactoryImpl := factory.NewCompanyFactoryImpl()
+	userFactoryImpl := factory.NewUserFactoryImpl()
+	userTypeFactoryImpl := factory.NewUserTypeFactoryImpl()
+
 	controller := controller2.NzediApiController{
 		AccountService:      accountService,
 		AccountStateService: accountStateService,
@@ -41,7 +49,12 @@ func wire(config config.ServiceConfiguration, db *gorm.DB) server.HttpServer {
 		UserTypeService:     userTypeService,
 		UserService:         userService,
 
-		AccountFactory: accountFactory,
+		AccountFactory:      accountFactoryImpl,
+		AccountStateFactory: accountStateFactoryImpl,
+		AccountTypeFactory:  accountTypeFactoryImpl,
+		CompanyFactory:      companyFactoryImpl,
+		UserFactory:         userFactoryImpl,
+		UserTypeFactory:     userTypeFactoryImpl,
 	}
 
 	return server.NewHttpServerImpl(config.AppConfig(), controller)

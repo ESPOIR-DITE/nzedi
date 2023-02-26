@@ -25,3 +25,7 @@ func (a AccountType) GetAccountType() *entity.AccountType {
 }
 
 var _ models.AccountType = AccountType{}
+
+func (AccountType) TableName() string {
+	return "account_type"
+}

@@ -19,7 +19,7 @@ func (n NzediApiController) DeleteAccountType(ctx echo.Context) error {
 	if state.Id < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
-	entityAccountType, err := n.AccountTypeFactory.CreateAccountType(state)
+	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
@@ -48,7 +48,7 @@ func (n NzediApiController) PatchAccountType(ctx echo.Context) error {
 	if state.Id < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
-	entityAccountType, err := n.AccountTypeFactory.CreateAccountType(state)
+	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
@@ -68,7 +68,7 @@ func (n NzediApiController) PostAccountType(ctx echo.Context) error {
 	if accountType.Id < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
-	entityAccountType, err := n.AccountTypeFactory.CreateAccountType(accountType)
+	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(accountType)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

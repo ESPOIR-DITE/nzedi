@@ -22,3 +22,7 @@ func (u User) GetUser() *entity.User {
 }
 
 var _ models.User = User{}
+
+func (User) TableName() string {
+	return "users"
+}

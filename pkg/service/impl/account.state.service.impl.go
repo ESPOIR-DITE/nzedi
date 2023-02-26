@@ -1,8 +1,10 @@
 package impl
 
 import (
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/db/models"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/db/repository"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/entity"
+	"github.com/ESPOIR-DITE/nzedi.git/pkg/service"
 )
 
 type AccountStateServiceImpl struct {
@@ -15,14 +17,14 @@ func NewAccountStateServiceImpl(accountStateRepository repository.AccountStateRe
 	}
 }
 
-var _ repository.AccountStateRepository = &AccountStateServiceImpl{}
+var _ service.AccountStateService = &AccountStateServiceImpl{}
 
 func (a AccountStateServiceImpl) CreateAccountState(accountState entity.AccountState) (*entity.AccountState, error) {
 	AccountState, err := a.AccountStateRepository.CreateAccountState(accountState)
 	if err != nil {
 		return nil, err
 	}
-	return AccountState, nil
+	return AccountState.GetAccountState(), nil
 }
 
 func (a AccountStateServiceImpl) ReadAccountState(id int) (*entity.AccountState, error) {
@@ -30,7 +32,7 @@ func (a AccountStateServiceImpl) ReadAccountState(id int) (*entity.AccountState,
 	if err != nil {
 		return nil, err
 	}
-	return AccountState, nil
+	return AccountState.GetAccountState(), nil
 }
 
 func (a AccountStateServiceImpl) UpdateAccountState(accountState entity.AccountState) (*entity.AccountState, error) {
@@ -38,7 +40,7 @@ func (a AccountStateServiceImpl) UpdateAccountState(accountState entity.AccountS
 	if err != nil {
 		return nil, err
 	}
-	return AccountState, nil
+	return AccountState.GetAccountState(), nil
 }
 
 func (a AccountStateServiceImpl) DeleteAccountState(accountState entity.AccountState) (bool, error) {
@@ -57,16 +59,16 @@ func (a AccountStateServiceImpl) ReadAccountStateAll() ([]entity.AccountState, e
 	return a.getAccountStateList(AccountState), nil
 }
 
-func (a AccountStateServiceImpl) getAccountStateList(accountList []entity.AccountState) []entity.AccountState {
+func (a AccountStateServiceImpl) getAccountStateList(accountList []models.AccountState) []entity.AccountState {
 	var accountStateAll []entity.AccountState
 	if accountList == nil {
 		return accountStateAll
 	}
 	for _, accountState := range accountList {
 		accountStateAll = append(accountStateAll, entity.AccountState{
-			Id:          accountState.Id,
-			Name:        accountState.Name,
-			Description: accountState.Description,
+			Id:          accountState.GetAccountState().Id,
+			Name:        accountState.GetAccountState().Name,
+			Description: accountState.GetAccountState().Description,
 		})
 	}
 	return accountStateAll

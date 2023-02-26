@@ -9,7 +9,7 @@ import (
 
 type AccountFactoryImpl struct{}
 
-func NewAccountFactoryImpl() *AccountFactoryImpl {
+func NewAccountFactory() *AccountFactoryImpl {
 	return &AccountFactoryImpl{}
 }
 

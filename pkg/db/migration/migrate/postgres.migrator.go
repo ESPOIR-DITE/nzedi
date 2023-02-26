@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/config"
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/golang-migrate/migrate/v4/source/github"
 )
 
 type PostgresMigrator struct {

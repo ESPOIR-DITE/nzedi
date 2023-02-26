@@ -61,8 +61,8 @@ func (a AccountStateRepositoryImpl) DeleteAccountState(accountState entity.Accou
 	return true, nil
 }
 
-func (a AccountStateRepositoryImpl) ReadAccountStateAll() ([]gormModel.AccountState, error) {
-	gormAccountState := []gormModel.AccountState{}
+func (a AccountStateRepositoryImpl) ReadAccountStateAll() ([]models.AccountState, error) {
+	gormAccountState := []models.AccountState{}
 	if err := a.GormDB.Find(&gormAccountState).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to reads account state"))
 		return nil, err

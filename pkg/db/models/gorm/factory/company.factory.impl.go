@@ -9,6 +9,9 @@ import (
 
 type CompanyFactoryImpl struct{}
 
+func NewCompanyFactoryImpl() *CompanyFactoryImpl {
+	return &CompanyFactoryImpl{}
+}
 func (c CompanyFactoryImpl) CreateCompany(company entity.Company) models.Company {
 	return gorm.Company{
 		Id:      company.Id,

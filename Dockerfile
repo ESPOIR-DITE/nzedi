@@ -14,6 +14,6 @@ RUN go build -o main .
 
 EXPOSE 3002
 
-ADD db/migrations/* /app/db/migrations/
+ADD db/migration/* /app/db/migrations/
 
 CMD ["./main"]

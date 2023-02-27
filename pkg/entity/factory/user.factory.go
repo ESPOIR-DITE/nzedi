@@ -16,7 +16,7 @@ func (u UserFactoryImpl) CreateUser(body spec.User) (*entity.User, error) {
 	return &entity.User{
 		Id:          body.Id,
 		AccountId:   body.AccountId,
-		DateOfBirth: body.DateOfBirth,
+		DateOfBirth: *body.DateOfBirth,
 		FirstName:   body.FirstName,
 		LastName:    body.LastName,
 	}, nil

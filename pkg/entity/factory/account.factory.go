@@ -20,7 +20,6 @@ var _ AccountFactory = &AccountFactoryImpl{}
 func (a AccountFactoryImpl) CreateAccount(body spec.Account) (*entity.Account, error) {
 	return &entity.Account{
 		Id:       body.Id,
-		Company:  body.Company,
 		Date:     body.Date,
 		Email:    body.Email,
 		Password: body.Password,

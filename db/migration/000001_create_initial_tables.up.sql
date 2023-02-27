@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS "account"
 (
     "id"         SERIAL PRIMARY KEY,
-    "company"    int,
     "date"       timestamptz,
     "password"   varchar,
     "token"      varchar,
@@ -41,7 +40,7 @@ CREATE TABLE IF NOT EXISTS "account_type"
 CREATE TABLE IF NOT EXISTS "company"
 (
     "id"         SERIAL PRIMARY KEY,
-    "manager"    varchar     NOT NULL,
+    "manager"    int     NOT NULL,
     "name"       varchar     NOT NULL,
     "url"        varchar,
     "created_at" timestamptz NOT NULL,
@@ -61,8 +60,10 @@ CREATE TABLE IF NOT EXISTS "user"
 
 ALTER TABLE "account_type"
     add FOREIGN KEY ("account_id") REFERENCES "account" ("id");
+
 ALTER TABLE "account_type"
     add FOREIGN KEY ("account_state") REFERENCES "account_state" ("id");
+
 ALTER TABLE "account_type"
     add FOREIGN KEY ("user_type_id") REFERENCES "user_type" ("id");
 
@@ -71,6 +72,3 @@ ALTER TABLE "user"
 
 ALTER TABLE "company"
     add FOREIGN KEY ("manager") REFERENCES "account" ("id");
-
-ALTER TABLE "account"
-    add FOREIGN KEY ("company") REFERENCES "company" ("id");

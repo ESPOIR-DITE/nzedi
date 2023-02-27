@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteUserType(ctx echo.Context) error {
@@ -80,16 +79,12 @@ func (n NzediApiController) PostUserType(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetUserTypeId(ctx echo.Context, id string) error {
+func (n NzediApiController) GetUserTypeId(ctx echo.Context, id int) error {
 	logger.Log.Info("User type controller receives get operation.")
-	if id == "" {
+	if id < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	userTypeId, err := strconv.Atoi(id)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.UserTypeService.ReadUserType(userTypeId)
+	deleteResult, err := n.UserTypeService.ReadUserType(id)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

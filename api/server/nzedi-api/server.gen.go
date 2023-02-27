@@ -26,7 +26,6 @@ import (
 
 // Account defines model for Account.
 type Account struct {
-	Company  int       `json:"company"`
 	Date     time.Time `json:"date"`
 	Email    string    `json:"email"`
 	Id       int       `json:"id"`
@@ -60,9 +59,9 @@ type Company struct {
 
 // User defines model for User.
 type User struct {
-	AccountId   int       `json:"accountId"`
-	DateOfBirth time.Time `json:"dateOfBirth,omitempty"`
-	FirstName   string    `json:"firstName"`
+	AccountId   int        `json:"accountId"`
+	DateOfBirth *time.Time `json:"dateOfBirth,omitempty"`
+	FirstName   string     `json:"firstName"`
 
 	// Unique identifier for the given user.
 	Id       int    `json:"id"`
@@ -106,14 +105,14 @@ type PatchAccountTypeJSONBody AccountType
 // PostAccountTypeJSONBody defines parameters for PostAccountType.
 type PostAccountTypeJSONBody AccountType
 
-// DeleteComanyJSONBody defines parameters for DeleteComany.
-type DeleteComanyJSONBody Company
+// DeleteCompanyJSONBody defines parameters for DeleteCompany.
+type DeleteCompanyJSONBody Company
 
-// PatchComanyJSONBody defines parameters for PatchComany.
-type PatchComanyJSONBody Company
+// PatchCompanyJSONBody defines parameters for PatchCompany.
+type PatchCompanyJSONBody Company
 
-// PostComanyJSONBody defines parameters for PostComany.
-type PostComanyJSONBody Company
+// PostCompanyJSONBody defines parameters for PostCompany.
+type PostCompanyJSONBody Company
 
 // DeleteUserJSONBody defines parameters for DeleteUser.
 type DeleteUserJSONBody User
@@ -168,14 +167,14 @@ type PatchAccountTypeJSONRequestBody PatchAccountTypeJSONBody
 // PostAccountTypeJSONRequestBody defines body for PostAccountType for application/json ContentType.
 type PostAccountTypeJSONRequestBody PostAccountTypeJSONBody
 
-// DeleteComanyJSONRequestBody defines body for DeleteComany for application/json ContentType.
-type DeleteComanyJSONRequestBody DeleteComanyJSONBody
+// DeleteCompanyJSONRequestBody defines body for DeleteCompany for application/json ContentType.
+type DeleteCompanyJSONRequestBody DeleteCompanyJSONBody
 
-// PatchComanyJSONRequestBody defines body for PatchComany for application/json ContentType.
-type PatchComanyJSONRequestBody PatchComanyJSONBody
+// PatchCompanyJSONRequestBody defines body for PatchCompany for application/json ContentType.
+type PatchCompanyJSONRequestBody PatchCompanyJSONBody
 
-// PostComanyJSONRequestBody defines body for PostComany for application/json ContentType.
-type PostComanyJSONRequestBody PostComanyJSONBody
+// PostCompanyJSONRequestBody defines body for PostCompany for application/json ContentType.
+type PostCompanyJSONRequestBody PostCompanyJSONBody
 
 // DeleteUserJSONRequestBody defines body for DeleteUser for application/json ContentType.
 type DeleteUserJSONRequestBody DeleteUserJSONBody
@@ -310,7 +309,7 @@ type ClientInterface interface {
 	PostAccountState(ctx context.Context, body PostAccountStateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountStateId request
-	GetAccountStateId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountStateId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteAccountType request with any body
 	DeleteAccountTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -331,37 +330,37 @@ type ClientInterface interface {
 	PostAccountType(ctx context.Context, body PostAccountTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountTypeAccountId request
-	GetAccountTypeAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountTypeAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountTypeId request
-	GetAccountTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountAccountId request
-	GetAccountAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// DeleteComany request with any body
-	DeleteComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// DeleteCompany request with any body
+	DeleteCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	DeleteComany(ctx context.Context, body DeleteComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteCompany(ctx context.Context, body DeleteCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetComany request
-	GetComany(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// GetCompany request
+	GetCompany(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// PatchComany request with any body
-	PatchComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// PatchCompany request with any body
+	PatchCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	PatchComany(ctx context.Context, body PatchComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PatchCompany(ctx context.Context, body PatchCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// PostComany request with any body
-	PostComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// PostCompany request with any body
+	PostCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	PostComany(ctx context.Context, body PostComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	PostCompany(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetCompanyUserId request
-	GetCompanyUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetCompanyUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetCompanyId request
-	GetCompanyId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetCompanyId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteUser request with any body
 	DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -400,10 +399,10 @@ type ClientInterface interface {
 	PostUserType(ctx context.Context, body PostUserTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUserTypeId request
-	GetUserTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUserTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUserAccountId request
-	GetUserAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUserAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUsersUserId request
 	GetUsersUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -601,7 +600,7 @@ func (c *Client) PostAccountState(ctx context.Context, body PostAccountStateJSON
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountStateId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountStateId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountStateIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -697,7 +696,7 @@ func (c *Client) PostAccountType(ctx context.Context, body PostAccountTypeJSONRe
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountTypeAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -709,7 +708,7 @@ func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId string, 
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountTypeIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -721,7 +720,7 @@ func (c *Client) GetAccountTypeId(ctx context.Context, id string, reqEditors ...
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -733,8 +732,8 @@ func (c *Client) GetAccountAccountId(ctx context.Context, accountId string, reqE
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteComanyRequestWithBody(c.Server, contentType, body)
+func (c *Client) DeleteCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteCompanyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -745,8 +744,8 @@ func (c *Client) DeleteComanyWithBody(ctx context.Context, contentType string, b
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteComany(ctx context.Context, body DeleteComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewDeleteComanyRequest(c.Server, body)
+func (c *Client) DeleteCompany(ctx context.Context, body DeleteCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteCompanyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -757,8 +756,8 @@ func (c *Client) DeleteComany(ctx context.Context, body DeleteComanyJSONRequestB
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetComany(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetComanyRequest(c.Server)
+func (c *Client) GetCompany(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetCompanyRequest(c.Server)
 	if err != nil {
 		return nil, err
 	}
@@ -769,8 +768,8 @@ func (c *Client) GetComany(ctx context.Context, reqEditors ...RequestEditorFn) (
 	return c.Client.Do(req)
 }
 
-func (c *Client) PatchComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPatchComanyRequestWithBody(c.Server, contentType, body)
+func (c *Client) PatchCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPatchCompanyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -781,8 +780,8 @@ func (c *Client) PatchComanyWithBody(ctx context.Context, contentType string, bo
 	return c.Client.Do(req)
 }
 
-func (c *Client) PatchComany(ctx context.Context, body PatchComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPatchComanyRequest(c.Server, body)
+func (c *Client) PatchCompany(ctx context.Context, body PatchCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPatchCompanyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -793,8 +792,8 @@ func (c *Client) PatchComany(ctx context.Context, body PatchComanyJSONRequestBod
 	return c.Client.Do(req)
 }
 
-func (c *Client) PostComanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPostComanyRequestWithBody(c.Server, contentType, body)
+func (c *Client) PostCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostCompanyRequestWithBody(c.Server, contentType, body)
 	if err != nil {
 		return nil, err
 	}
@@ -805,8 +804,8 @@ func (c *Client) PostComanyWithBody(ctx context.Context, contentType string, bod
 	return c.Client.Do(req)
 }
 
-func (c *Client) PostComany(ctx context.Context, body PostComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPostComanyRequest(c.Server, body)
+func (c *Client) PostCompany(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostCompanyRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -817,7 +816,7 @@ func (c *Client) PostComany(ctx context.Context, body PostComanyJSONRequestBody,
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetCompanyUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetCompanyUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCompanyUserIdRequest(c.Server, userId)
 	if err != nil {
 		return nil, err
@@ -829,7 +828,7 @@ func (c *Client) GetCompanyUserId(ctx context.Context, userId string, reqEditors
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetCompanyId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetCompanyId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCompanyIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -1009,7 +1008,7 @@ func (c *Client) PostUserType(ctx context.Context, body PostUserTypeJSONRequestB
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetUserTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetUserTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetUserTypeIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -1021,7 +1020,7 @@ func (c *Client) GetUserTypeId(ctx context.Context, id string, reqEditors ...Req
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetUserAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetUserAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetUserAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -1380,7 +1379,7 @@ func NewPostAccountStateRequestWithBody(server string, contentType string, body 
 }
 
 // NewGetAccountStateIdRequest generates requests for GetAccountStateId
-func NewGetAccountStateIdRequest(server string, id string) (*http.Request, error) {
+func NewGetAccountStateIdRequest(server string, id int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1561,7 +1560,7 @@ func NewPostAccountTypeRequestWithBody(server string, contentType string, body i
 }
 
 // NewGetAccountTypeAccountIdRequest generates requests for GetAccountTypeAccountId
-func NewGetAccountTypeAccountIdRequest(server string, accountId string) (*http.Request, error) {
+func NewGetAccountTypeAccountIdRequest(server string, accountId int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1595,7 +1594,7 @@ func NewGetAccountTypeAccountIdRequest(server string, accountId string) (*http.R
 }
 
 // NewGetAccountTypeIdRequest generates requests for GetAccountTypeId
-func NewGetAccountTypeIdRequest(server string, id string) (*http.Request, error) {
+func NewGetAccountTypeIdRequest(server string, id int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1629,7 +1628,7 @@ func NewGetAccountTypeIdRequest(server string, id string) (*http.Request, error)
 }
 
 // NewGetAccountAccountIdRequest generates requests for GetAccountAccountId
-func NewGetAccountAccountIdRequest(server string, accountId string) (*http.Request, error) {
+func NewGetAccountAccountIdRequest(server string, accountId int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1662,19 +1661,19 @@ func NewGetAccountAccountIdRequest(server string, accountId string) (*http.Reque
 	return req, nil
 }
 
-// NewDeleteComanyRequest calls the generic DeleteComany builder with application/json body
-func NewDeleteComanyRequest(server string, body DeleteComanyJSONRequestBody) (*http.Request, error) {
+// NewDeleteCompanyRequest calls the generic DeleteCompany builder with application/json body
+func NewDeleteCompanyRequest(server string, body DeleteCompanyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewDeleteComanyRequestWithBody(server, "application/json", bodyReader)
+	return NewDeleteCompanyRequestWithBody(server, "application/json", bodyReader)
 }
 
-// NewDeleteComanyRequestWithBody generates requests for DeleteComany with any type of body
-func NewDeleteComanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewDeleteCompanyRequestWithBody generates requests for DeleteCompany with any type of body
+func NewDeleteCompanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -1682,7 +1681,7 @@ func NewDeleteComanyRequestWithBody(server string, contentType string, body io.R
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/comany")
+	operationPath := fmt.Sprintf("/company")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -1702,8 +1701,8 @@ func NewDeleteComanyRequestWithBody(server string, contentType string, body io.R
 	return req, nil
 }
 
-// NewGetComanyRequest generates requests for GetComany
-func NewGetComanyRequest(server string) (*http.Request, error) {
+// NewGetCompanyRequest generates requests for GetCompany
+func NewGetCompanyRequest(server string) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -1711,7 +1710,7 @@ func NewGetComanyRequest(server string) (*http.Request, error) {
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/comany")
+	operationPath := fmt.Sprintf("/company")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -1729,19 +1728,19 @@ func NewGetComanyRequest(server string) (*http.Request, error) {
 	return req, nil
 }
 
-// NewPatchComanyRequest calls the generic PatchComany builder with application/json body
-func NewPatchComanyRequest(server string, body PatchComanyJSONRequestBody) (*http.Request, error) {
+// NewPatchCompanyRequest calls the generic PatchCompany builder with application/json body
+func NewPatchCompanyRequest(server string, body PatchCompanyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewPatchComanyRequestWithBody(server, "application/json", bodyReader)
+	return NewPatchCompanyRequestWithBody(server, "application/json", bodyReader)
 }
 
-// NewPatchComanyRequestWithBody generates requests for PatchComany with any type of body
-func NewPatchComanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewPatchCompanyRequestWithBody generates requests for PatchCompany with any type of body
+func NewPatchCompanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -1749,7 +1748,7 @@ func NewPatchComanyRequestWithBody(server string, contentType string, body io.Re
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/comany")
+	operationPath := fmt.Sprintf("/company")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -1769,19 +1768,19 @@ func NewPatchComanyRequestWithBody(server string, contentType string, body io.Re
 	return req, nil
 }
 
-// NewPostComanyRequest calls the generic PostComany builder with application/json body
-func NewPostComanyRequest(server string, body PostComanyJSONRequestBody) (*http.Request, error) {
+// NewPostCompanyRequest calls the generic PostCompany builder with application/json body
+func NewPostCompanyRequest(server string, body PostCompanyJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 	bodyReader = bytes.NewReader(buf)
-	return NewPostComanyRequestWithBody(server, "application/json", bodyReader)
+	return NewPostCompanyRequestWithBody(server, "application/json", bodyReader)
 }
 
-// NewPostComanyRequestWithBody generates requests for PostComany with any type of body
-func NewPostComanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+// NewPostCompanyRequestWithBody generates requests for PostCompany with any type of body
+func NewPostCompanyRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -1789,7 +1788,7 @@ func NewPostComanyRequestWithBody(server string, contentType string, body io.Rea
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/comany")
+	operationPath := fmt.Sprintf("/company")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -1810,7 +1809,7 @@ func NewPostComanyRequestWithBody(server string, contentType string, body io.Rea
 }
 
 // NewGetCompanyUserIdRequest generates requests for GetCompanyUserId
-func NewGetCompanyUserIdRequest(server string, userId string) (*http.Request, error) {
+func NewGetCompanyUserIdRequest(server string, userId int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1844,7 +1843,7 @@ func NewGetCompanyUserIdRequest(server string, userId string) (*http.Request, er
 }
 
 // NewGetCompanyIdRequest generates requests for GetCompanyId
-func NewGetCompanyIdRequest(server string, id string) (*http.Request, error) {
+func NewGetCompanyIdRequest(server string, id int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2172,7 +2171,7 @@ func NewPostUserTypeRequestWithBody(server string, contentType string, body io.R
 }
 
 // NewGetUserTypeIdRequest generates requests for GetUserTypeId
-func NewGetUserTypeIdRequest(server string, id string) (*http.Request, error) {
+func NewGetUserTypeIdRequest(server string, id int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2206,7 +2205,7 @@ func NewGetUserTypeIdRequest(server string, id string) (*http.Request, error) {
 }
 
 // NewGetUserAccountIdRequest generates requests for GetUserAccountId
-func NewGetUserAccountIdRequest(server string, accountId string) (*http.Request, error) {
+func NewGetUserAccountIdRequest(server string, accountId int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2358,7 +2357,7 @@ type ClientWithResponsesInterface interface {
 	PostAccountStateWithResponse(ctx context.Context, body PostAccountStateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAccountStateResponse, error)
 
 	// GetAccountStateId request
-	GetAccountStateIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error)
+	GetAccountStateIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error)
 
 	// DeleteAccountType request with any body
 	DeleteAccountTypeWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteAccountTypeResponse, error)
@@ -2379,37 +2378,37 @@ type ClientWithResponsesInterface interface {
 	PostAccountTypeWithResponse(ctx context.Context, body PostAccountTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAccountTypeResponse, error)
 
 	// GetAccountTypeAccountId request
-	GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error)
+	GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error)
 
 	// GetAccountTypeId request
-	GetAccountTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error)
+	GetAccountTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error)
 
 	// GetAccountAccountId request
-	GetAccountAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error)
+	GetAccountAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error)
 
-	// DeleteComany request with any body
-	DeleteComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteComanyResponse, error)
+	// DeleteCompany request with any body
+	DeleteCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteCompanyResponse, error)
 
-	DeleteComanyWithResponse(ctx context.Context, body DeleteComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteComanyResponse, error)
+	DeleteCompanyWithResponse(ctx context.Context, body DeleteCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteCompanyResponse, error)
 
-	// GetComany request
-	GetComanyWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetComanyResponse, error)
+	// GetCompany request
+	GetCompanyWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCompanyResponse, error)
 
-	// PatchComany request with any body
-	PatchComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchComanyResponse, error)
+	// PatchCompany request with any body
+	PatchCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchCompanyResponse, error)
 
-	PatchComanyWithResponse(ctx context.Context, body PatchComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchComanyResponse, error)
+	PatchCompanyWithResponse(ctx context.Context, body PatchCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchCompanyResponse, error)
 
-	// PostComany request with any body
-	PostComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostComanyResponse, error)
+	// PostCompany request with any body
+	PostCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostCompanyResponse, error)
 
-	PostComanyWithResponse(ctx context.Context, body PostComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PostComanyResponse, error)
+	PostCompanyWithResponse(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PostCompanyResponse, error)
 
 	// GetCompanyUserId request
-	GetCompanyUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error)
+	GetCompanyUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error)
 
 	// GetCompanyId request
-	GetCompanyIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error)
+	GetCompanyIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error)
 
 	// DeleteUser request with any body
 	DeleteUserWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error)
@@ -2448,10 +2447,10 @@ type ClientWithResponsesInterface interface {
 	PostUserTypeWithResponse(ctx context.Context, body PostUserTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*PostUserTypeResponse, error)
 
 	// GetUserTypeId request
-	GetUserTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error)
+	GetUserTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error)
 
 	// GetUserAccountId request
-	GetUserAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error)
+	GetUserAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error)
 
 	// GetUsersUserId request
 	GetUsersUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetUsersUserIdResponse, error)
@@ -2831,14 +2830,14 @@ func (r GetAccountAccountIdResponse) StatusCode() int {
 	return 0
 }
 
-type DeleteComanyResponse struct {
+type DeleteCompanyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *bool
 }
 
 // Status returns HTTPResponse.Status
-func (r DeleteComanyResponse) Status() string {
+func (r DeleteCompanyResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -2846,21 +2845,21 @@ func (r DeleteComanyResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r DeleteComanyResponse) StatusCode() int {
+func (r DeleteCompanyResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type GetComanyResponse struct {
+type GetCompanyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *[]Company
 }
 
 // Status returns HTTPResponse.Status
-func (r GetComanyResponse) Status() string {
+func (r GetCompanyResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -2868,21 +2867,21 @@ func (r GetComanyResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetComanyResponse) StatusCode() int {
+func (r GetCompanyResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type PatchComanyResponse struct {
+type PatchCompanyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *Company
 }
 
 // Status returns HTTPResponse.Status
-func (r PatchComanyResponse) Status() string {
+func (r PatchCompanyResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -2890,21 +2889,21 @@ func (r PatchComanyResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r PatchComanyResponse) StatusCode() int {
+func (r PatchCompanyResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
 }
 
-type PostComanyResponse struct {
+type PostCompanyResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON201      *Company
 }
 
 // Status returns HTTPResponse.Status
-func (r PostComanyResponse) Status() string {
+func (r PostCompanyResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -2912,7 +2911,7 @@ func (r PostComanyResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r PostComanyResponse) StatusCode() int {
+func (r PostCompanyResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -3343,7 +3342,7 @@ func (c *ClientWithResponses) PostAccountStateWithResponse(ctx context.Context, 
 }
 
 // GetAccountStateIdWithResponse request returning *GetAccountStateIdResponse
-func (c *ClientWithResponses) GetAccountStateIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error) {
+func (c *ClientWithResponses) GetAccountStateIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error) {
 	rsp, err := c.GetAccountStateId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3412,7 +3411,7 @@ func (c *ClientWithResponses) PostAccountTypeWithResponse(ctx context.Context, b
 }
 
 // GetAccountTypeAccountIdWithResponse request returning *GetAccountTypeAccountIdResponse
-func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error) {
+func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error) {
 	rsp, err := c.GetAccountTypeAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3421,7 +3420,7 @@ func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Co
 }
 
 // GetAccountTypeIdWithResponse request returning *GetAccountTypeIdResponse
-func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error) {
+func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error) {
 	rsp, err := c.GetAccountTypeId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3430,7 +3429,7 @@ func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, 
 }
 
 // GetAccountAccountIdWithResponse request returning *GetAccountAccountIdResponse
-func (c *ClientWithResponses) GetAccountAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error) {
+func (c *ClientWithResponses) GetAccountAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error) {
 	rsp, err := c.GetAccountAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3438,68 +3437,68 @@ func (c *ClientWithResponses) GetAccountAccountIdWithResponse(ctx context.Contex
 	return ParseGetAccountAccountIdResponse(rsp)
 }
 
-// DeleteComanyWithBodyWithResponse request with arbitrary body returning *DeleteComanyResponse
-func (c *ClientWithResponses) DeleteComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteComanyResponse, error) {
-	rsp, err := c.DeleteComanyWithBody(ctx, contentType, body, reqEditors...)
+// DeleteCompanyWithBodyWithResponse request with arbitrary body returning *DeleteCompanyResponse
+func (c *ClientWithResponses) DeleteCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteCompanyResponse, error) {
+	rsp, err := c.DeleteCompanyWithBody(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseDeleteComanyResponse(rsp)
+	return ParseDeleteCompanyResponse(rsp)
 }
 
-func (c *ClientWithResponses) DeleteComanyWithResponse(ctx context.Context, body DeleteComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteComanyResponse, error) {
-	rsp, err := c.DeleteComany(ctx, body, reqEditors...)
+func (c *ClientWithResponses) DeleteCompanyWithResponse(ctx context.Context, body DeleteCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*DeleteCompanyResponse, error) {
+	rsp, err := c.DeleteCompany(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseDeleteComanyResponse(rsp)
+	return ParseDeleteCompanyResponse(rsp)
 }
 
-// GetComanyWithResponse request returning *GetComanyResponse
-func (c *ClientWithResponses) GetComanyWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetComanyResponse, error) {
-	rsp, err := c.GetComany(ctx, reqEditors...)
+// GetCompanyWithResponse request returning *GetCompanyResponse
+func (c *ClientWithResponses) GetCompanyWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCompanyResponse, error) {
+	rsp, err := c.GetCompany(ctx, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetComanyResponse(rsp)
+	return ParseGetCompanyResponse(rsp)
 }
 
-// PatchComanyWithBodyWithResponse request with arbitrary body returning *PatchComanyResponse
-func (c *ClientWithResponses) PatchComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchComanyResponse, error) {
-	rsp, err := c.PatchComanyWithBody(ctx, contentType, body, reqEditors...)
+// PatchCompanyWithBodyWithResponse request with arbitrary body returning *PatchCompanyResponse
+func (c *ClientWithResponses) PatchCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchCompanyResponse, error) {
+	rsp, err := c.PatchCompanyWithBody(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePatchComanyResponse(rsp)
+	return ParsePatchCompanyResponse(rsp)
 }
 
-func (c *ClientWithResponses) PatchComanyWithResponse(ctx context.Context, body PatchComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchComanyResponse, error) {
-	rsp, err := c.PatchComany(ctx, body, reqEditors...)
+func (c *ClientWithResponses) PatchCompanyWithResponse(ctx context.Context, body PatchCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchCompanyResponse, error) {
+	rsp, err := c.PatchCompany(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePatchComanyResponse(rsp)
+	return ParsePatchCompanyResponse(rsp)
 }
 
-// PostComanyWithBodyWithResponse request with arbitrary body returning *PostComanyResponse
-func (c *ClientWithResponses) PostComanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostComanyResponse, error) {
-	rsp, err := c.PostComanyWithBody(ctx, contentType, body, reqEditors...)
+// PostCompanyWithBodyWithResponse request with arbitrary body returning *PostCompanyResponse
+func (c *ClientWithResponses) PostCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostCompanyResponse, error) {
+	rsp, err := c.PostCompanyWithBody(ctx, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostComanyResponse(rsp)
+	return ParsePostCompanyResponse(rsp)
 }
 
-func (c *ClientWithResponses) PostComanyWithResponse(ctx context.Context, body PostComanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PostComanyResponse, error) {
-	rsp, err := c.PostComany(ctx, body, reqEditors...)
+func (c *ClientWithResponses) PostCompanyWithResponse(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PostCompanyResponse, error) {
+	rsp, err := c.PostCompany(ctx, body, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParsePostComanyResponse(rsp)
+	return ParsePostCompanyResponse(rsp)
 }
 
 // GetCompanyUserIdWithResponse request returning *GetCompanyUserIdResponse
-func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error) {
+func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error) {
 	rsp, err := c.GetCompanyUserId(ctx, userId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3508,7 +3507,7 @@ func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, 
 }
 
 // GetCompanyIdWithResponse request returning *GetCompanyIdResponse
-func (c *ClientWithResponses) GetCompanyIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error) {
+func (c *ClientWithResponses) GetCompanyIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error) {
 	rsp, err := c.GetCompanyId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3637,7 +3636,7 @@ func (c *ClientWithResponses) PostUserTypeWithResponse(ctx context.Context, body
 }
 
 // GetUserTypeIdWithResponse request returning *GetUserTypeIdResponse
-func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error) {
+func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error) {
 	rsp, err := c.GetUserTypeId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3646,7 +3645,7 @@ func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id 
 }
 
 // GetUserAccountIdWithResponse request returning *GetUserAccountIdResponse
-func (c *ClientWithResponses) GetUserAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error) {
+func (c *ClientWithResponses) GetUserAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error) {
 	rsp, err := c.GetUserAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4105,15 +4104,15 @@ func ParseGetAccountAccountIdResponse(rsp *http.Response) (*GetAccountAccountIdR
 	return response, nil
 }
 
-// ParseDeleteComanyResponse parses an HTTP response from a DeleteComanyWithResponse call
-func ParseDeleteComanyResponse(rsp *http.Response) (*DeleteComanyResponse, error) {
+// ParseDeleteCompanyResponse parses an HTTP response from a DeleteCompanyWithResponse call
+func ParseDeleteCompanyResponse(rsp *http.Response) (*DeleteCompanyResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &DeleteComanyResponse{
+	response := &DeleteCompanyResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -4131,15 +4130,15 @@ func ParseDeleteComanyResponse(rsp *http.Response) (*DeleteComanyResponse, error
 	return response, nil
 }
 
-// ParseGetComanyResponse parses an HTTP response from a GetComanyWithResponse call
-func ParseGetComanyResponse(rsp *http.Response) (*GetComanyResponse, error) {
+// ParseGetCompanyResponse parses an HTTP response from a GetCompanyWithResponse call
+func ParseGetCompanyResponse(rsp *http.Response) (*GetCompanyResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetComanyResponse{
+	response := &GetCompanyResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -4157,15 +4156,15 @@ func ParseGetComanyResponse(rsp *http.Response) (*GetComanyResponse, error) {
 	return response, nil
 }
 
-// ParsePatchComanyResponse parses an HTTP response from a PatchComanyWithResponse call
-func ParsePatchComanyResponse(rsp *http.Response) (*PatchComanyResponse, error) {
+// ParsePatchCompanyResponse parses an HTTP response from a PatchCompanyWithResponse call
+func ParsePatchCompanyResponse(rsp *http.Response) (*PatchCompanyResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PatchComanyResponse{
+	response := &PatchCompanyResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -4183,15 +4182,15 @@ func ParsePatchComanyResponse(rsp *http.Response) (*PatchComanyResponse, error) 
 	return response, nil
 }
 
-// ParsePostComanyResponse parses an HTTP response from a PostComanyWithResponse call
-func ParsePostComanyResponse(rsp *http.Response) (*PostComanyResponse, error) {
+// ParsePostCompanyResponse parses an HTTP response from a PostCompanyWithResponse call
+func ParsePostCompanyResponse(rsp *http.Response) (*PostCompanyResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
 	defer rsp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PostComanyResponse{
+	response := &PostCompanyResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -4578,7 +4577,7 @@ type ServerInterface interface {
 	PostAccountState(ctx echo.Context) error
 	// GET account state endpoint
 	// (GET /account-state/{id})
-	GetAccountStateId(ctx echo.Context, id string) error
+	GetAccountStateId(ctx echo.Context, id int) error
 	// Delete account type endpoint
 	// (DELETE /account-type)
 	DeleteAccountType(ctx echo.Context) error
@@ -4593,31 +4592,31 @@ type ServerInterface interface {
 	PostAccountType(ctx echo.Context) error
 	// GET  account types endpoint
 	// (GET /account-type/account/{accountId})
-	GetAccountTypeAccountId(ctx echo.Context, accountId string) error
+	GetAccountTypeAccountId(ctx echo.Context, accountId int) error
 	// GET account type endpoint
 	// (GET /account-type/{id})
-	GetAccountTypeId(ctx echo.Context, id string) error
+	GetAccountTypeId(ctx echo.Context, id int) error
 	// GET account endpoint
 	// (GET /account/{accountId})
-	GetAccountAccountId(ctx echo.Context, accountId string) error
+	GetAccountAccountId(ctx echo.Context, accountId int) error
 	// DELETE company endpoint.
-	// (DELETE /comany)
-	DeleteComany(ctx echo.Context) error
+	// (DELETE /company)
+	DeleteCompany(ctx echo.Context) error
 	// Company get endpoint
-	// (GET /comany)
-	GetComany(ctx echo.Context) error
+	// (GET /company)
+	GetCompany(ctx echo.Context) error
 	// Patch campany endpoint
-	// (PATCH /comany)
-	PatchComany(ctx echo.Context) error
+	// (PATCH /company)
+	PatchCompany(ctx echo.Context) error
 	// Company Post endpoint
-	// (POST /comany)
-	PostComany(ctx echo.Context) error
+	// (POST /company)
+	PostCompany(ctx echo.Context) error
 	// GET Company endpoint
 	// (GET /company/user/{userId})
-	GetCompanyUserId(ctx echo.Context, userId string) error
+	GetCompanyUserId(ctx echo.Context, userId int) error
 	// Company GET endpoint
 	// (GET /company/{id})
-	GetCompanyId(ctx echo.Context, id string) error
+	GetCompanyId(ctx echo.Context, id int) error
 
 	// (DELETE /user)
 	DeleteUser(ctx echo.Context) error
@@ -4644,10 +4643,10 @@ type ServerInterface interface {
 	PostUserType(ctx echo.Context) error
 	// GET  user type endpoint
 	// (GET /user-type/{id})
-	GetUserTypeId(ctx echo.Context, id string) error
+	GetUserTypeId(ctx echo.Context, id int) error
 	// GET user with account endpoint
 	// (GET /user/account/{accountId})
-	GetUserAccountId(ctx echo.Context, accountId string) error
+	GetUserAccountId(ctx echo.Context, accountId int) error
 	// Get User Info by User ID
 	// (GET /user/{userId})
 	GetUsersUserId(ctx echo.Context, userId int) error
@@ -4743,7 +4742,7 @@ func (w *ServerInterfaceWrapper) PostAccountState(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountStateId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id string
+	var id int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4795,7 +4794,7 @@ func (w *ServerInterfaceWrapper) PostAccountType(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountTypeAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId string
+	var accountId int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -4811,7 +4810,7 @@ func (w *ServerInterfaceWrapper) GetAccountTypeAccountId(ctx echo.Context) error
 func (w *ServerInterfaceWrapper) GetAccountTypeId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id string
+	var id int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4827,7 +4826,7 @@ func (w *ServerInterfaceWrapper) GetAccountTypeId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId string
+	var accountId int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -4839,39 +4838,39 @@ func (w *ServerInterfaceWrapper) GetAccountAccountId(ctx echo.Context) error {
 	return err
 }
 
-// DeleteComany converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteComany(ctx echo.Context) error {
+// DeleteCompany converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteCompany(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteComany(ctx)
+	err = w.Handler.DeleteCompany(ctx)
 	return err
 }
 
-// GetComany converts echo context to params.
-func (w *ServerInterfaceWrapper) GetComany(ctx echo.Context) error {
+// GetCompany converts echo context to params.
+func (w *ServerInterfaceWrapper) GetCompany(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetComany(ctx)
+	err = w.Handler.GetCompany(ctx)
 	return err
 }
 
-// PatchComany converts echo context to params.
-func (w *ServerInterfaceWrapper) PatchComany(ctx echo.Context) error {
+// PatchCompany converts echo context to params.
+func (w *ServerInterfaceWrapper) PatchCompany(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PatchComany(ctx)
+	err = w.Handler.PatchCompany(ctx)
 	return err
 }
 
-// PostComany converts echo context to params.
-func (w *ServerInterfaceWrapper) PostComany(ctx echo.Context) error {
+// PostCompany converts echo context to params.
+func (w *ServerInterfaceWrapper) PostCompany(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostComany(ctx)
+	err = w.Handler.PostCompany(ctx)
 	return err
 }
 
@@ -4879,7 +4878,7 @@ func (w *ServerInterfaceWrapper) PostComany(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetCompanyUserId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "userId" -------------
-	var userId string
+	var userId int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "userId", runtime.ParamLocationPath, ctx.Param("userId"), &userId)
 	if err != nil {
@@ -4895,7 +4894,7 @@ func (w *ServerInterfaceWrapper) GetCompanyUserId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetCompanyId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id string
+	var id int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4983,7 +4982,7 @@ func (w *ServerInterfaceWrapper) PostUserType(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetUserTypeId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id string
+	var id int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4999,7 +4998,7 @@ func (w *ServerInterfaceWrapper) GetUserTypeId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetUserAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId string
+	var accountId int
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -5072,10 +5071,10 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/account-type/account/:accountId", wrapper.GetAccountTypeAccountId)
 	router.GET(baseURL+"/account-type/:id", wrapper.GetAccountTypeId)
 	router.GET(baseURL+"/account/:accountId", wrapper.GetAccountAccountId)
-	router.DELETE(baseURL+"/comany", wrapper.DeleteComany)
-	router.GET(baseURL+"/comany", wrapper.GetComany)
-	router.PATCH(baseURL+"/comany", wrapper.PatchComany)
-	router.POST(baseURL+"/comany", wrapper.PostComany)
+	router.DELETE(baseURL+"/company", wrapper.DeleteCompany)
+	router.GET(baseURL+"/company", wrapper.GetCompany)
+	router.PATCH(baseURL+"/company", wrapper.PatchCompany)
+	router.POST(baseURL+"/company", wrapper.PostCompany)
 	router.GET(baseURL+"/company/user/:userId", wrapper.GetCompanyUserId)
 	router.GET(baseURL+"/company/:id", wrapper.GetCompanyId)
 	router.DELETE(baseURL+"/user", wrapper.DeleteUser)
@@ -5095,48 +5094,45 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"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",
-	"4FUAAA==",
+	"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",
+	"8elgcKKlxV8BAAD//1P8VQIvVQAA",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

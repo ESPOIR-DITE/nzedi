@@ -1,8 +1,5 @@
 {
   "openapi": "3.1.0",
-  "x-stoplight": {
-    "id": "j6nz8i4qqcxeq"
-  },
   "info": {
     "title": "users",
     "version": "1.0",
@@ -43,7 +40,7 @@
                       "id": 0,
                       "firstName": "string",
                       "lastName": "string",
-                      "dateOfBirth": "1997-10-31",
+                      "dateOfBirth": "2019-08-24T14:15:22Z",
                       "accountId": 0
                     }
                   }
@@ -77,7 +74,7 @@
                       "id": 0,
                       "firstName": "string",
                       "lastName": "string",
-                      "dateOfBirth": "1997-10-31",
+                      "dateOfBirth": "2019-08-24T14:15:22Z",
                       "accountId": 0
                     }
                   }
@@ -120,12 +117,12 @@
                 ]
               },
               "examples": {
-                "Create User Bob Fellow": {
+                "Example 1": {
                   "value": {
-                    "firstName": "Bob",
-                    "lastName": "Fellow",
-                    "email": "bob.fellow@gmail.com",
-                    "dateOfBirth": "1996-08-24"
+                    "firstName": "string",
+                    "lastName": "string",
+                    "email": "string",
+                    "dateOfBirth": "2019-08-24"
                   }
                 }
               }
@@ -171,7 +168,7 @@
                     "id": 0,
                     "firstName": "string",
                     "lastName": "string",
-                    "dateOfBirth": "1997-10-31",
+                    "dateOfBirth": "2019-08-24T14:15:22Z",
                     "accountId": 0
                   }
                 }
@@ -197,7 +194,7 @@
                       "id": 0,
                       "firstName": "string",
                       "lastName": "string",
-                      "dateOfBirth": "1997-10-31",
+                      "dateOfBirth": "2019-08-24T14:15:22Z",
                       "accountId": 0
                     }
                   }
@@ -225,7 +222,7 @@
                     "id": 0,
                     "firstName": "string",
                     "lastName": "string",
-                    "dateOfBirth": "1997-10-31",
+                    "dateOfBirth": "2019-08-24T14:15:22Z",
                     "accountId": 0
                   }
                 }
@@ -255,7 +252,7 @@
                         "id": 0,
                         "firstName": "string",
                         "lastName": "string",
-                        "dateOfBirth": "1997-10-31",
+                        "dateOfBirth": "2019-08-24T14:15:22Z",
                         "accountId": 0
                       }
                     ]
@@ -505,7 +502,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "accountId",
           "in": "path",
@@ -554,7 +551,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "accountId",
           "in": "path",
@@ -578,7 +575,7 @@
                       "id": 0,
                       "firstName": "string",
                       "lastName": "string",
-                      "dateOfBirth": "1997-10-31",
+                      "dateOfBirth": "2019-08-24T14:15:22Z",
                       "accountId": 0
                     }
                   }
@@ -803,7 +800,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "id",
           "in": "path",
@@ -1048,7 +1045,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "id",
           "in": "path",
@@ -1123,12 +1120,12 @@
             "description": "Forbidden"
           }
         },
-        "operationId": "get-comany",
+        "operationId": "get-company",
         "description": "Retreive all existing companies."
       },
       "post": {
         "summary": "Company Post endpoint",
-        "operationId": "post-comany",
+        "operationId": "post-company",
         "responses": {
           "201": {
             "description": "Created",
@@ -1184,7 +1181,7 @@
       },
       "patch": {
         "summary": "Patch campany endpoint",
-        "operationId": "patch-comany",
+        "operationId": "patch-company",
         "responses": {
           "200": {
             "description": "OK",
@@ -1239,7 +1236,7 @@
       },
       "delete": {
         "summary": "DELETE company endpoint.",
-        "operationId": "delete-comany",
+        "operationId": "delete-company",
         "responses": {
           "200": {
             "description": "OK",
@@ -1287,13 +1284,14 @@
           "description": ""
         },
         "description": "Delete an existing campany."
-      }
+      },
+      "parameters": []
     },
     "/company/{id}": {
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "id",
           "in": "path",
@@ -1342,7 +1340,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "userId",
           "in": "path",
@@ -1587,7 +1585,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "id",
           "in": "path",
@@ -1638,7 +1636,7 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer"
           },
           "name": "accountId",
           "in": "path",
@@ -1690,7 +1688,7 @@
             "id": 0,
             "firstName": "string",
             "lastName": "string",
-            "dateOfBirth": "1997-10-31",
+            "dateOfBirth": "2019-08-24T14:15:22Z",
             "accountId": 0
           }
         ],
@@ -1707,8 +1705,8 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "format": "date",
-            "example": "1997-10-31"
+            "format": "date-time",
+            "example": "2019-08-24T14:15:22Z"
           },
           "accountId": {
             "type": "integer"
@@ -1723,9 +1721,6 @@
       },
       "Account": {
         "title": "Account",
-        "x-stoplight": {
-          "id": "im8tjx3l99lf8"
-        },
         "type": "object",
         "properties": {
           "id": {
@@ -1746,24 +1741,17 @@
           "date": {
             "type": "string",
             "format": "date-time"
-          },
-          "company": {
-            "type": "integer"
           }
         },
         "required": [
           "id",
           "password",
           "email",
-          "date",
-          "company"
+          "date"
         ]
       },
       "AccountType": {
         "title": "AccountType",
-        "x-stoplight": {
-          "id": "okegfliuss83p"
-        },
         "type": "object",
         "properties": {
           "id": {
@@ -1788,9 +1776,6 @@
       },
       "UserType": {
         "title": "UserType",
-        "x-stoplight": {
-          "id": "tnfsi1cl3dybu"
-        },
         "type": "object",
         "properties": {
           "id": {
@@ -1810,9 +1795,6 @@
       },
       "Company": {
         "title": "Company",
-        "x-stoplight": {
-          "id": "ngtv728ddoe1a"
-        },
         "type": "object",
         "properties": {
           "id": {
@@ -1836,9 +1818,6 @@
       },
       "AccountState": {
         "title": "AccountState",
-        "x-stoplight": {
-          "id": "bw4206vg2jhb6"
-        },
         "type": "object",
         "properties": {
           "id": {

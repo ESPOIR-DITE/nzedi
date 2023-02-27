@@ -8,7 +8,6 @@ import (
 
 type Account struct {
 	Id        int `gorm:"primarykey"`
-	Company   int
 	Date      time.Time
 	Email     string
 	Password  string

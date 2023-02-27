@@ -8,10 +8,10 @@ networks:
 services:
   postgres-db:
     image: bitnami/postgresql:latest
-    hostname: nzedi-api-postgres
-    container_name: nzedi-api-postgres
+    hostname: ditkay-eshop-api-postgres
+    container_name: ditkay-eshop-api-postgres
     ports:
-      - 5432:5433
+      - 5432:5432
     environment:
       - POSTGRESQL_USERNAME=root
       - POSTGRESQL_PASSWORD=root

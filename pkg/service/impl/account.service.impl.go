@@ -84,7 +84,6 @@ func (a AccountServiceImpl) getAccountList(accountList []gorm.Account) []entity.
 	for _, account := range accountList {
 		accountAll = append(accountAll, entity.Account{
 			Id:       account.Id,
-			Company:  account.Company,
 			Date:     account.Date,
 			Email:    account.Email,
 			Password: account.Password,

@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteUser(ctx echo.Context) error {
@@ -79,16 +78,13 @@ func (n NzediApiController) PostUser(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
-func (n NzediApiController) GetUserAccountId(ctx echo.Context, accountId string) error {
+func (n NzediApiController) GetUserAccountId(ctx echo.Context, accountId int) error {
 	logger.Log.Info("User receives get with account id operation.")
-	if accountId == "" {
+	if accountId < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	id, err := strconv.Atoi(accountId)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.UserService.ReadUserWithAccountId(id)
+
+	deleteResult, err := n.UserService.ReadUserWithAccountId(accountId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteAccountType(ctx echo.Context) error {
@@ -79,32 +78,25 @@ func (n NzediApiController) PostAccountType(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId string) error {
+func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId int) error {
 	logger.Log.Info("Account type receives get account by accountId operation.")
-	if accountId == "" {
+	if accountId < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	id, err := strconv.Atoi(accountId)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.AccountTypeService.ReadAccountTypeWithAccountId(id)
+	deleteResult, err := n.AccountTypeService.ReadAccountTypeWithAccountId(accountId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetAccountTypeId(ctx echo.Context, accountId string) error {
+func (n NzediApiController) GetAccountTypeId(ctx echo.Context, accountId int) error {
 	logger.Log.Info("Account type receives get operation.")
-	if accountId == "" {
+	if accountId < 0 {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	id, err := strconv.Atoi(accountId)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.AccountTypeService.ReadAccountType(id)
+
+	deleteResult, err := n.AccountTypeService.ReadAccountType(accountId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

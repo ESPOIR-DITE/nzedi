@@ -80,8 +80,8 @@ func (a AccountRepositoryImpl) LoginWithEmail(account entity.Account) (models.Ac
 
 func (a AccountRepositoryImpl) LoginWithUserName(account entity.Account) (models.Account, error) {
 	gormMediaType := &gormModel.Account{}
-	if err := a.GormDB.Where("username = ? AND password = ? ", account.Email, account.Password).First(&gormMediaType).Error; err != nil {
-		logger.Log.Error(fmt.Errorf("failed to login with username Account username: %d", account.UserName))
+	if err := a.GormDB.Where("username = ? AND password = ? ", account.Username, account.Password).First(&gormMediaType).Error; err != nil {
+		logger.Log.Error(fmt.Errorf("failed to login with username Account username: %d", account.Username))
 		return nil, err
 	}
 	return gormMediaType, nil

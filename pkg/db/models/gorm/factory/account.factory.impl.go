@@ -20,7 +20,7 @@ func (a AccountFactoryImpl) CreateAccount(account entity.Account) models.Account
 		Email:    account.Email,
 		Password: account.Password,
 		Token:    account.Token,
-		UserName: account.UserName,
+		Username: account.Username,
 	}
 }
 

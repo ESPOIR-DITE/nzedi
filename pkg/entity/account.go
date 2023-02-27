@@ -8,5 +8,5 @@ type Account struct {
 	Id       int
 	Password string
 	Token    *string
-	UserName *string
+	Username string
 }

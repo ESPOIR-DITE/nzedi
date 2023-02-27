@@ -15,8 +15,11 @@ type AccountState struct {
 }
 
 func (a AccountState) GetAccountState() *entity.AccountState {
-	//TODO implement me
-	panic("implement me")
+	return &entity.AccountState{
+		Id:          a.Id,
+		Name:        a.Name,
+		Description: a.Description,
+	}
 }
 
 var _ models.AccountState = AccountState{}

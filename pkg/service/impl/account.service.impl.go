@@ -66,7 +66,7 @@ func (a AccountServiceImpl) UserLogin(account entity.Account) (*entity.Account, 
 		}
 		return Account.GetAccount(), nil
 	}
-	if account.UserName != nil {
+	if account.Username != "" {
 		Account, err := a.AccountRepository.LoginWithUserName(account)
 		if err != nil {
 			return Account.GetAccount(), err
@@ -88,7 +88,7 @@ func (a AccountServiceImpl) getAccountList(accountList []gorm.Account) []entity.
 			Email:    account.Email,
 			Password: account.Password,
 			Token:    account.Token,
-			UserName: account.UserName,
+			Username: account.Username,
 		})
 	}
 	return accountAll

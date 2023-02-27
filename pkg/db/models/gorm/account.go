@@ -12,14 +12,20 @@ type Account struct {
 	Email     string
 	Password  string
 	Token     *string
-	UserName  *string `sql:"user_name"`
+	Username  string `sql:"username"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
 func (a Account) GetAccount() *entity.Account {
-	//TODO implement me
-	panic("implement me")
+	return &entity.Account{
+		Id:       a.Id,
+		Email:    a.Email,
+		Date:     a.Date,
+		Password: a.Password,
+		Token:    a.Token,
+		Username: a.Username,
+	}
 }
 
 var _ models.Account = &Account{}

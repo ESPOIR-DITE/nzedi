@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS "account"
     "id"         SERIAL PRIMARY KEY,
     "date"       timestamptz,
     "password"   varchar,
+    "email"      varchar     NOT NULL,
     "token"      varchar,
     "username"   varchar,
     "created_at" timestamptz NOT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS "account_type"
 CREATE TABLE IF NOT EXISTS "company"
 (
     "id"         SERIAL PRIMARY KEY,
-    "manager"    int     NOT NULL,
+    "manager"    int         NOT NULL,
     "name"       varchar     NOT NULL,
     "url"        varchar,
     "created_at" timestamptz NOT NULL,

@@ -17,12 +17,17 @@ type User struct {
 }
 
 func (u User) GetUser() *entity.User {
-	//TODO implement me
-	panic("implement me")
+	return &entity.User{
+		Id:          u.Id,
+		AccountId:   u.AccountId,
+		DateOfBirth: u.DateOfBirth,
+		FirstName:   u.Firstname,
+		LastName:    u.Lastname,
+	}
 }
 
 var _ models.User = User{}
 
 func (User) TableName() string {
-	return "users"
+	return "user"
 }

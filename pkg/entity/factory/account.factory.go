@@ -24,6 +24,6 @@ func (a AccountFactoryImpl) CreateAccount(body spec.Account) (*entity.Account, e
 		Email:    body.Email,
 		Password: body.Password,
 		Token:    body.Token,
-		UserName: body.UserName,
+		Username: *body.UserName,
 	}, nil
 }

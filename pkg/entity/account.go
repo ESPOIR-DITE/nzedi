@@ -5,7 +5,7 @@ import "time"
 type Account struct {
 	Date     time.Time
 	Email    string
-	Id       int
+	Id       string
 	Password string
 	Token    *string
 	Username string

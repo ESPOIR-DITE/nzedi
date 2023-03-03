@@ -15,7 +15,7 @@ func (n NzediApiController) DeleteAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
@@ -44,7 +44,7 @@ func (n NzediApiController) PatchAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
@@ -64,7 +64,7 @@ func (n NzediApiController) PostAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&accountType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if accountType.Id < 0 {
+	if accountType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(accountType)
@@ -78,9 +78,9 @@ func (n NzediApiController) PostAccountType(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId int) error {
+func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId string) error {
 	logger.Log.Info("Account type receives get account by accountId operation.")
-	if accountId < 0 {
+	if accountId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
 	deleteResult, err := n.AccountTypeService.ReadAccountTypeWithAccountId(accountId)
@@ -90,9 +90,9 @@ func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId 
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetAccountTypeId(ctx echo.Context, accountId int) error {
+func (n NzediApiController) GetAccountTypeId(ctx echo.Context, accountId string) error {
 	logger.Log.Info("Account type receives get operation.")
-	if accountId < 0 {
+	if accountId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
 

@@ -9,6 +9,33 @@ import (
 )
 
 type JwtSecurityServiceImpl struct {
+	AccountService service.AccountService
+}
+
+func NewJwtSecurityService(accountService service.AccountService) *JwtSecurityServiceImpl {
+	return &JwtSecurityServiceImpl{AccountService: accountService}
+}
+
+var _ service.JwtSecurityService = &JwtSecurityServiceImpl{}
+
+func (j JwtSecurityServiceImpl) VerifyRequest(token string) error {
+	if err := j.VerifyToken(token); err != nil {
+		return err
+	}
+	if j.IsValid(token) {
+		accountId, err := j.GetEmail(token)
+		if err != nil {
+			return err
+		}
+		account, err := j.AccountService.ReadAccount(accountId)
+		if err != nil {
+			return err
+		}
+		if account != nil {
+			return nil
+		}
+	}
+	return errors.New("unauthorised request")
 }
 
 func (j JwtSecurityServiceImpl) GenerateJWTToken(email string) (string, error) {
@@ -103,9 +130,3 @@ func (j JwtSecurityServiceImpl) GenerateSecretKey() string {
 	}
 	return tokenString
 }
-
-func NewJwtSecurityService() *JwtSecurityServiceImpl {
-	return &JwtSecurityServiceImpl{}
-}
-
-var _ service.JwtSecurityService = &JwtSecurityServiceImpl{}

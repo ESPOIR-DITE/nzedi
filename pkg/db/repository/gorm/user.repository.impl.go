@@ -35,16 +35,16 @@ func (u UserRepositoryImpl) CreateUser(User entity.User) (models.User, error) {
 	return gormUser, nil
 }
 
-func (u UserRepositoryImpl) ReadUser(id int) (models.User, error) {
+func (u UserRepositoryImpl) ReadUser(id string) (models.User, error) {
 	gormUser := &gormModel.User{}
-	if err := u.GormDB.First(&gormUser, id).Error; err != nil {
+	if err := u.GormDB.Where("id = ?", id).First(&gormUser).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get User with id: %d, err: %s", id, err))
 		return nil, err
 	}
 	return gormUser, nil
 }
 
-func (u UserRepositoryImpl) ReadUserWithAccountId(id int) (models.User, error) {
+func (u UserRepositoryImpl) ReadUserWithAccountId(id string) (models.User, error) {
 	gormUser := &gormModel.User{}
 	if err := u.GormDB.Where("account_id = ?", id).First(&gormUser).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to get user Type with accountId: %d : %s", id, err))

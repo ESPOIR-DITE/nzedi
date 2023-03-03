@@ -39,9 +39,15 @@ func NewHttpServerImpl(
 func initMiddleware(e *echo.Echo) error {
 	initLogger(e)
 	initRecoverFunction(e)
+	initCORS(e)
 	return initRequestValidator(e)
 }
-
+func initCORS(e *echo.Echo) {
+	e.Use(echomiddleware.CORSWithConfig(echomiddleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
+	}))
+}
 func initRecoverFunction(e *echo.Echo) {
 	e.Use(echomiddleware.RecoverWithConfig(echomiddleware.RecoverConfig{
 		StackSize: 1 << 10, // 1 KB

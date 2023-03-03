@@ -16,62 +16,60 @@ import (
 	"net/url"
 	"path"
 	"strings"
-	"time"
 
 	"github.com/deepmap/oapi-codegen/pkg/runtime"
-	openapi_types "github.com/deepmap/oapi-codegen/pkg/types"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/labstack/echo/v4"
 )
 
 // Account defines model for Account.
 type Account struct {
-	Date     time.Time `json:"date"`
-	Email    string    `json:"email"`
-	Id       int       `json:"id"`
-	Password string    `json:"password"`
-	Token    *string   `json:"token,omitempty"`
-	UserName *string   `json:"userName,omitempty"`
+	Date     string  `json:"date"`
+	Email    string  `json:"email"`
+	Id       string  `json:"id"`
+	Password string  `json:"password"`
+	Token    *string `json:"token,omitempty"`
+	UserName *string `json:"userName,omitempty"`
 }
 
 // AccountState defines model for AccountState.
 type AccountState struct {
 	Description *string `json:"description,omitempty"`
-	Id          int     `json:"id"`
+	Id          string  `json:"id"`
 	Name        string  `json:"name"`
 }
 
 // AccountType defines model for AccountType.
 type AccountType struct {
-	AccountId    int `json:"accountId"`
-	AccountState int `json:"accountState"`
-	Id           int `json:"id"`
-	UserTypeId   int `json:"userTypeId"`
+	AccountId    string `json:"accountId"`
+	AccountState string `json:"accountState"`
+	Id           string `json:"id"`
+	UserTypeId   string `json:"userTypeId"`
 }
 
 // Company defines model for Company.
 type Company struct {
-	Id      int     `json:"id"`
-	Manager int     `json:"manager"`
+	Id      string  `json:"id"`
+	Manager string  `json:"manager"`
 	Name    string  `json:"name"`
 	Url     *string `json:"url,omitempty"`
 }
 
 // User defines model for User.
 type User struct {
-	AccountId   int        `json:"accountId"`
-	DateOfBirth *time.Time `json:"dateOfBirth,omitempty"`
-	FirstName   string     `json:"firstName"`
+	AccountId   string  `json:"accountId"`
+	DateOfBirth *string `json:"dateOfBirth,omitempty"`
+	FirstName   string  `json:"firstName"`
 
 	// Unique identifier for the given user.
-	Id       int    `json:"id"`
+	Id       string `json:"id"`
 	LastName string `json:"lastName"`
 }
 
 // UserType defines model for UserType.
 type UserType struct {
 	Description *string `json:"description,omitempty"`
-	Id          int     `json:"id"`
+	Id          string  `json:"id"`
 	Name        string  `json:"name"`
 }
 
@@ -121,12 +119,7 @@ type DeleteUserJSONBody User
 type PatchUserJSONBody User
 
 // PostUserJSONBody defines parameters for PostUser.
-type PostUserJSONBody struct {
-	DateOfBirth openapi_types.Date `json:"dateOfBirth"`
-	Email       string             `json:"email"`
-	FirstName   string             `json:"firstName"`
-	LastName    string             `json:"lastName"`
-}
+type PostUserJSONBody User
 
 // DeleteUserTypeJSONBody defines parameters for DeleteUserType.
 type DeleteUserTypeJSONBody UserType
@@ -309,7 +302,7 @@ type ClientInterface interface {
 	PostAccountState(ctx context.Context, body PostAccountStateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountStateId request
-	GetAccountStateId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountStateId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteAccountType request with any body
 	DeleteAccountTypeWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -330,13 +323,13 @@ type ClientInterface interface {
 	PostAccountType(ctx context.Context, body PostAccountTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountTypeAccountId request
-	GetAccountTypeAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountTypeAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountTypeId request
-	GetAccountTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetAccountAccountId request
-	GetAccountAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetAccountAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteCompany request with any body
 	DeleteCompanyWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -357,10 +350,10 @@ type ClientInterface interface {
 	PostCompany(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetCompanyUserId request
-	GetCompanyUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetCompanyUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetCompanyId request
-	GetCompanyId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetCompanyId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteUser request with any body
 	DeleteUserWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -399,13 +392,13 @@ type ClientInterface interface {
 	PostUserType(ctx context.Context, body PostUserTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUserTypeId request
-	GetUserTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUserTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUserAccountId request
-	GetUserAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUserAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetUsersUserId request
-	GetUsersUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetUsersUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) DeleteAccountWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -600,7 +593,7 @@ func (c *Client) PostAccountState(ctx context.Context, body PostAccountStateJSON
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountStateId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountStateId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountStateIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -696,7 +689,7 @@ func (c *Client) PostAccountType(ctx context.Context, body PostAccountTypeJSONRe
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountTypeAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -708,7 +701,7 @@ func (c *Client) GetAccountTypeAccountId(ctx context.Context, accountId int, req
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountTypeIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -720,7 +713,7 @@ func (c *Client) GetAccountTypeId(ctx context.Context, id int, reqEditors ...Req
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetAccountAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetAccountAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetAccountAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -816,7 +809,7 @@ func (c *Client) PostCompany(ctx context.Context, body PostCompanyJSONRequestBod
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetCompanyUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetCompanyUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCompanyUserIdRequest(c.Server, userId)
 	if err != nil {
 		return nil, err
@@ -828,7 +821,7 @@ func (c *Client) GetCompanyUserId(ctx context.Context, userId int, reqEditors ..
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetCompanyId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetCompanyId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetCompanyIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -1008,7 +1001,7 @@ func (c *Client) PostUserType(ctx context.Context, body PostUserTypeJSONRequestB
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetUserTypeId(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetUserTypeId(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetUserTypeIdRequest(c.Server, id)
 	if err != nil {
 		return nil, err
@@ -1020,7 +1013,7 @@ func (c *Client) GetUserTypeId(ctx context.Context, id int, reqEditors ...Reques
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetUserAccountId(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetUserAccountId(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetUserAccountIdRequest(c.Server, accountId)
 	if err != nil {
 		return nil, err
@@ -1032,7 +1025,7 @@ func (c *Client) GetUserAccountId(ctx context.Context, accountId int, reqEditors
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetUsersUserId(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) GetUsersUserId(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetUsersUserIdRequest(c.Server, userId)
 	if err != nil {
 		return nil, err
@@ -1379,7 +1372,7 @@ func NewPostAccountStateRequestWithBody(server string, contentType string, body 
 }
 
 // NewGetAccountStateIdRequest generates requests for GetAccountStateId
-func NewGetAccountStateIdRequest(server string, id int) (*http.Request, error) {
+func NewGetAccountStateIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1560,7 +1553,7 @@ func NewPostAccountTypeRequestWithBody(server string, contentType string, body i
 }
 
 // NewGetAccountTypeAccountIdRequest generates requests for GetAccountTypeAccountId
-func NewGetAccountTypeAccountIdRequest(server string, accountId int) (*http.Request, error) {
+func NewGetAccountTypeAccountIdRequest(server string, accountId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1594,7 +1587,7 @@ func NewGetAccountTypeAccountIdRequest(server string, accountId int) (*http.Requ
 }
 
 // NewGetAccountTypeIdRequest generates requests for GetAccountTypeId
-func NewGetAccountTypeIdRequest(server string, id int) (*http.Request, error) {
+func NewGetAccountTypeIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1628,7 +1621,7 @@ func NewGetAccountTypeIdRequest(server string, id int) (*http.Request, error) {
 }
 
 // NewGetAccountAccountIdRequest generates requests for GetAccountAccountId
-func NewGetAccountAccountIdRequest(server string, accountId int) (*http.Request, error) {
+func NewGetAccountAccountIdRequest(server string, accountId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1809,7 +1802,7 @@ func NewPostCompanyRequestWithBody(server string, contentType string, body io.Re
 }
 
 // NewGetCompanyUserIdRequest generates requests for GetCompanyUserId
-func NewGetCompanyUserIdRequest(server string, userId int) (*http.Request, error) {
+func NewGetCompanyUserIdRequest(server string, userId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -1843,7 +1836,7 @@ func NewGetCompanyUserIdRequest(server string, userId int) (*http.Request, error
 }
 
 // NewGetCompanyIdRequest generates requests for GetCompanyId
-func NewGetCompanyIdRequest(server string, id int) (*http.Request, error) {
+func NewGetCompanyIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2171,7 +2164,7 @@ func NewPostUserTypeRequestWithBody(server string, contentType string, body io.R
 }
 
 // NewGetUserTypeIdRequest generates requests for GetUserTypeId
-func NewGetUserTypeIdRequest(server string, id int) (*http.Request, error) {
+func NewGetUserTypeIdRequest(server string, id string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2205,7 +2198,7 @@ func NewGetUserTypeIdRequest(server string, id int) (*http.Request, error) {
 }
 
 // NewGetUserAccountIdRequest generates requests for GetUserAccountId
-func NewGetUserAccountIdRequest(server string, accountId int) (*http.Request, error) {
+func NewGetUserAccountIdRequest(server string, accountId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2239,7 +2232,7 @@ func NewGetUserAccountIdRequest(server string, accountId int) (*http.Request, er
 }
 
 // NewGetUsersUserIdRequest generates requests for GetUsersUserId
-func NewGetUsersUserIdRequest(server string, userId int) (*http.Request, error) {
+func NewGetUsersUserIdRequest(server string, userId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2357,7 +2350,7 @@ type ClientWithResponsesInterface interface {
 	PostAccountStateWithResponse(ctx context.Context, body PostAccountStateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAccountStateResponse, error)
 
 	// GetAccountStateId request
-	GetAccountStateIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error)
+	GetAccountStateIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error)
 
 	// DeleteAccountType request with any body
 	DeleteAccountTypeWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteAccountTypeResponse, error)
@@ -2378,13 +2371,13 @@ type ClientWithResponsesInterface interface {
 	PostAccountTypeWithResponse(ctx context.Context, body PostAccountTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAccountTypeResponse, error)
 
 	// GetAccountTypeAccountId request
-	GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error)
+	GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error)
 
 	// GetAccountTypeId request
-	GetAccountTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error)
+	GetAccountTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error)
 
 	// GetAccountAccountId request
-	GetAccountAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error)
+	GetAccountAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error)
 
 	// DeleteCompany request with any body
 	DeleteCompanyWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteCompanyResponse, error)
@@ -2405,10 +2398,10 @@ type ClientWithResponsesInterface interface {
 	PostCompanyWithResponse(ctx context.Context, body PostCompanyJSONRequestBody, reqEditors ...RequestEditorFn) (*PostCompanyResponse, error)
 
 	// GetCompanyUserId request
-	GetCompanyUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error)
+	GetCompanyUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error)
 
 	// GetCompanyId request
-	GetCompanyIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error)
+	GetCompanyIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error)
 
 	// DeleteUser request with any body
 	DeleteUserWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DeleteUserResponse, error)
@@ -2447,13 +2440,13 @@ type ClientWithResponsesInterface interface {
 	PostUserTypeWithResponse(ctx context.Context, body PostUserTypeJSONRequestBody, reqEditors ...RequestEditorFn) (*PostUserTypeResponse, error)
 
 	// GetUserTypeId request
-	GetUserTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error)
+	GetUserTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error)
 
 	// GetUserAccountId request
-	GetUserAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error)
+	GetUserAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error)
 
 	// GetUsersUserId request
-	GetUsersUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetUsersUserIdResponse, error)
+	GetUsersUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetUsersUserIdResponse, error)
 }
 
 type DeleteAccountResponse struct {
@@ -3342,7 +3335,7 @@ func (c *ClientWithResponses) PostAccountStateWithResponse(ctx context.Context, 
 }
 
 // GetAccountStateIdWithResponse request returning *GetAccountStateIdResponse
-func (c *ClientWithResponses) GetAccountStateIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error) {
+func (c *ClientWithResponses) GetAccountStateIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountStateIdResponse, error) {
 	rsp, err := c.GetAccountStateId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3411,7 +3404,7 @@ func (c *ClientWithResponses) PostAccountTypeWithResponse(ctx context.Context, b
 }
 
 // GetAccountTypeAccountIdWithResponse request returning *GetAccountTypeAccountIdResponse
-func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error) {
+func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountTypeAccountIdResponse, error) {
 	rsp, err := c.GetAccountTypeAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3420,7 +3413,7 @@ func (c *ClientWithResponses) GetAccountTypeAccountIdWithResponse(ctx context.Co
 }
 
 // GetAccountTypeIdWithResponse request returning *GetAccountTypeIdResponse
-func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error) {
+func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetAccountTypeIdResponse, error) {
 	rsp, err := c.GetAccountTypeId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3429,7 +3422,7 @@ func (c *ClientWithResponses) GetAccountTypeIdWithResponse(ctx context.Context, 
 }
 
 // GetAccountAccountIdWithResponse request returning *GetAccountAccountIdResponse
-func (c *ClientWithResponses) GetAccountAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error) {
+func (c *ClientWithResponses) GetAccountAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetAccountAccountIdResponse, error) {
 	rsp, err := c.GetAccountAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3498,7 +3491,7 @@ func (c *ClientWithResponses) PostCompanyWithResponse(ctx context.Context, body 
 }
 
 // GetCompanyUserIdWithResponse request returning *GetCompanyUserIdResponse
-func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error) {
+func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetCompanyUserIdResponse, error) {
 	rsp, err := c.GetCompanyUserId(ctx, userId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3507,7 +3500,7 @@ func (c *ClientWithResponses) GetCompanyUserIdWithResponse(ctx context.Context, 
 }
 
 // GetCompanyIdWithResponse request returning *GetCompanyIdResponse
-func (c *ClientWithResponses) GetCompanyIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error) {
+func (c *ClientWithResponses) GetCompanyIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetCompanyIdResponse, error) {
 	rsp, err := c.GetCompanyId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3636,7 +3629,7 @@ func (c *ClientWithResponses) PostUserTypeWithResponse(ctx context.Context, body
 }
 
 // GetUserTypeIdWithResponse request returning *GetUserTypeIdResponse
-func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id int, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error) {
+func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id string, reqEditors ...RequestEditorFn) (*GetUserTypeIdResponse, error) {
 	rsp, err := c.GetUserTypeId(ctx, id, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3645,7 +3638,7 @@ func (c *ClientWithResponses) GetUserTypeIdWithResponse(ctx context.Context, id 
 }
 
 // GetUserAccountIdWithResponse request returning *GetUserAccountIdResponse
-func (c *ClientWithResponses) GetUserAccountIdWithResponse(ctx context.Context, accountId int, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error) {
+func (c *ClientWithResponses) GetUserAccountIdWithResponse(ctx context.Context, accountId string, reqEditors ...RequestEditorFn) (*GetUserAccountIdResponse, error) {
 	rsp, err := c.GetUserAccountId(ctx, accountId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3654,7 +3647,7 @@ func (c *ClientWithResponses) GetUserAccountIdWithResponse(ctx context.Context, 
 }
 
 // GetUsersUserIdWithResponse request returning *GetUsersUserIdResponse
-func (c *ClientWithResponses) GetUsersUserIdWithResponse(ctx context.Context, userId int, reqEditors ...RequestEditorFn) (*GetUsersUserIdResponse, error) {
+func (c *ClientWithResponses) GetUsersUserIdWithResponse(ctx context.Context, userId string, reqEditors ...RequestEditorFn) (*GetUsersUserIdResponse, error) {
 	rsp, err := c.GetUsersUserId(ctx, userId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -4577,7 +4570,7 @@ type ServerInterface interface {
 	PostAccountState(ctx echo.Context) error
 	// GET account state endpoint
 	// (GET /account-state/{id})
-	GetAccountStateId(ctx echo.Context, id int) error
+	GetAccountStateId(ctx echo.Context, id string) error
 	// Delete account type endpoint
 	// (DELETE /account-type)
 	DeleteAccountType(ctx echo.Context) error
@@ -4592,13 +4585,13 @@ type ServerInterface interface {
 	PostAccountType(ctx echo.Context) error
 	// GET  account types endpoint
 	// (GET /account-type/account/{accountId})
-	GetAccountTypeAccountId(ctx echo.Context, accountId int) error
+	GetAccountTypeAccountId(ctx echo.Context, accountId string) error
 	// GET account type endpoint
 	// (GET /account-type/{id})
-	GetAccountTypeId(ctx echo.Context, id int) error
+	GetAccountTypeId(ctx echo.Context, id string) error
 	// GET account endpoint
 	// (GET /account/{accountId})
-	GetAccountAccountId(ctx echo.Context, accountId int) error
+	GetAccountAccountId(ctx echo.Context, accountId string) error
 	// DELETE company endpoint.
 	// (DELETE /company)
 	DeleteCompany(ctx echo.Context) error
@@ -4613,10 +4606,10 @@ type ServerInterface interface {
 	PostCompany(ctx echo.Context) error
 	// GET Company endpoint
 	// (GET /company/user/{userId})
-	GetCompanyUserId(ctx echo.Context, userId int) error
+	GetCompanyUserId(ctx echo.Context, userId string) error
 	// Company GET endpoint
 	// (GET /company/{id})
-	GetCompanyId(ctx echo.Context, id int) error
+	GetCompanyId(ctx echo.Context, id string) error
 
 	// (DELETE /user)
 	DeleteUser(ctx echo.Context) error
@@ -4643,13 +4636,13 @@ type ServerInterface interface {
 	PostUserType(ctx echo.Context) error
 	// GET  user type endpoint
 	// (GET /user-type/{id})
-	GetUserTypeId(ctx echo.Context, id int) error
+	GetUserTypeId(ctx echo.Context, id string) error
 	// GET user with account endpoint
 	// (GET /user/account/{accountId})
-	GetUserAccountId(ctx echo.Context, accountId int) error
+	GetUserAccountId(ctx echo.Context, accountId string) error
 	// Get User Info by User ID
 	// (GET /user/{userId})
-	GetUsersUserId(ctx echo.Context, userId int) error
+	GetUsersUserId(ctx echo.Context, userId string) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -4742,7 +4735,7 @@ func (w *ServerInterfaceWrapper) PostAccountState(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountStateId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4794,7 +4787,7 @@ func (w *ServerInterfaceWrapper) PostAccountType(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountTypeAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId int
+	var accountId string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -4810,7 +4803,7 @@ func (w *ServerInterfaceWrapper) GetAccountTypeAccountId(ctx echo.Context) error
 func (w *ServerInterfaceWrapper) GetAccountTypeId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4826,7 +4819,7 @@ func (w *ServerInterfaceWrapper) GetAccountTypeId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetAccountAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId int
+	var accountId string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -4878,7 +4871,7 @@ func (w *ServerInterfaceWrapper) PostCompany(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetCompanyUserId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "userId" -------------
-	var userId int
+	var userId string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "userId", runtime.ParamLocationPath, ctx.Param("userId"), &userId)
 	if err != nil {
@@ -4894,7 +4887,7 @@ func (w *ServerInterfaceWrapper) GetCompanyUserId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetCompanyId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4982,7 +4975,7 @@ func (w *ServerInterfaceWrapper) PostUserType(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetUserTypeId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "id" -------------
-	var id int
+	var id string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "id", runtime.ParamLocationPath, ctx.Param("id"), &id)
 	if err != nil {
@@ -4998,7 +4991,7 @@ func (w *ServerInterfaceWrapper) GetUserTypeId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetUserAccountId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "accountId" -------------
-	var accountId int
+	var accountId string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "accountId", runtime.ParamLocationPath, ctx.Param("accountId"), &accountId)
 	if err != nil {
@@ -5014,7 +5007,7 @@ func (w *ServerInterfaceWrapper) GetUserAccountId(ctx echo.Context) error {
 func (w *ServerInterfaceWrapper) GetUsersUserId(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "userId" -------------
-	var userId int
+	var userId string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "userId", runtime.ParamLocationPath, ctx.Param("userId"), &userId)
 	if err != nil {
@@ -5094,45 +5087,43 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/+xcXXPbuBX9KxhsZ/oiW5KtTGM91XG8qafbbCa1X7rjB5i8suCQABeA7Kge/fcdfPBL",
-	"BCVSMWXJ0UsikwRxgXtwcQ4uwGcc8DjhDJiSePyMZTCFmJif50HAZ0zpn4ngCQhFwdwIiQL9/4SLmCg8",
-	"NheOFI0B97CaJ4DHWCpB2T1e9DDEhEb68codGhYuU6bgHoS+nhApn7gIvYUU/wbMe2cmQXwmMXhuLnpY",
-	"wJ8zKiDE4z90xYVaUhN7tmG3PayoinTxtAeyVvG7BwiUrszd+q9yfbHUQyADQRNFOWvVctbcfPNo1VZr",
-	"UL3B1+b6sr3E3ryqMYssNbb6RF2DtE90lf43+9qVm1IqvWREteGmYZ52X/A4IWxebXOdyTFhRP9s46Ae",
-	"nomojePyagotSU31tOJGWovgO4mTSDfgj5LXBha8v08+UKGmeIxPBsOzo8H7o5PR9XA0Hr4bn5z8D/fw",
-	"hAqp7CBJjbTOG/RwRJZvLW577YBSsiGzdoU5jSJIwejasVQacfiG0T9ngGgITNEJBYEmXCA1BXRPH4Eh",
-	"DazjvKpCC/JOaOTM3LRC0SKIC+41PqzxrX9YvkIYyYypGKqLUzbhZpaYxTERcz36kICZJHcRoPOEIjUl",
-	"CpEo4k8SkZma6v4PiG4AIiw0l7ig0l7hE+MIpDgiQQBSIgGSz0QA0jjHmaSfkbiHH0FI697h8UA3kyfA",
-	"SELxGJ8e60s6pqup6bk+ySevECKwcasMko/mOoLvVCrK7pErcoyup1QiEhgbYzJHDB61lYLeg4DwGN3N",
-	"FCJhTO3dO7ANhlA3ROmywMKEU6Z0K7Q/TXP1mHF15vOK9gdI9YGHJkIFnCmwVpMkiVzX9R+kBYCdnPWv",
-	"vwmY4DH+pZ/P3n03dffTty8W1uMy4UxaQJ0MBg2qyYPMM760v9FQ//FIohngsRIzWPSyWyeFWxMSSdDV",
-	"5qY6GN1xHgFhFkdlR/z+b+3NkbWtfOsDCdFX20f2maFvsDtY/R9CA/Icnc7Frkcyv+hX3YOqvuorKEHh",
-	"0XjUhItlcMiqSz+BKvqzdW/nPUUVxLKxd7MBSoQg8877VT90Wn3oVy7uaBgCW+r5T2DiQNZvltepYOqp",
-	"J9HRf804DAhDnEVmuIWcAbqbI8LsMKz65IuuadNRtg7+ljIbTuGm3foJzpHf9J3/VCDVccDjfNbNyS4e",
-	"xWe/POig7DguPj0bPEhO308enka4SHDxlymNKLdO35GosPfdsr2w5BDvC0sJl564FAjQBQhi8JSOjyro",
-	"uVQHzDfG/PDQLVXMXxighV0B377eD/yZB/c3jh4mgj/SEFDaQ+iJqikCqqYgDIfUNBZxgUwnIxKGQtNJ",
-	"xdG9noeQ6UXPNDFTe07FNgHgsu4rwC67lcIuu1AAXCYndjvI/sbvKStAbNHLVMGRTFcy1mgDwiq0BJmy",
-	"a5h9ugrz0kG4bOSyI9kP+sda3a1seE1p0JLCfrz87fL6suz39RJCgBJAnYTwg2eliMih00Gw2BJ+fF4s",
-	"q4PL6xX9ulonlMqtZP6HUbhrIHitofzl/PriX6sQ52XdFx7WXQe7nHvvN+p6Jeu+x1GZ7CyvCfZwPIsU",
-	"TYhQ/QkX8VFIFFldpDMq/kq4fnnK3BbcXKpabFdYT/+Zhgv9cu/sZehyHemxrJswRMO1M5hJ2fjC1zaC",
-	"wr5CqeBh3ZZR1ZTPXKFf+YyFLSdUQWJQIGzeiOo3JURNcdYWGuJickBTNQ9RyxN3t0VcKZe82IBM66I2",
-	"aUAlYlyhiLJvdiXdqbtiKZMtYNxmDKpvW0PKXVrjpeNyISV2cjpaTpaenozeWeAMh6flfOjp6F177JhG",
-	"dEgOXqc1O0X7HVqLCG2QOCChn/Hr8isJfwbLF/dmJUVcduYgC2hFPw4Wt2U3tslKWH/udmYic1XJQw10",
-	"R134qs/2FcXIIfr8nNHHt/BfG1ta6JBy2RV65I0Db/iGgLed1fca9C0zuvSP/nPWOfW64Wtx1atUQU7o",
-	"CKtNXZVnw/PCFrCtJdR3dOraQAeUJ7aWQoCU+n5zPbBaZhq5UjefWpVZvLJab2Y7BLuekhozqDfBg4uS",
-	"sjpRdaooG4WcTzVLFUX4XK0Ezg/GmUNubuOZqIit7cWnIN8K3GKpIiCmVN3iQr5p96UZloNAth/5rLL0",
-	"5LYdb+D11OpDsq+c7HMQKWi6VVsFq3k+W57WKP4iVrpQ+8uIGY7WIWYTrZ9hZ7d1vjPT7ABpkV1ky86c",
-	"1+j6LQ7892d7NPKr9v+jG/N3KsGoEZFOFW0lvSvmFfHbQ9m2ZpdhNxh7vxWMvXqyL41qJulXFu8uXPU1",
-	"Hew/63/b0Od05rP0GbmO/busE1/OkBtTDd5SJBm8+UCimfEF94SRtcx4lntiI1q8WrHndKcWM2wNVA4w",
-	"efkwoOGyBV0+c8cPmx6lSs/X+QSTOwbX4Xp0R4chm4PGNHEvpdVi1bbG7GRUyc9+qZN5ufusZicHXzfQ",
-	"RdbrzUSR96yUPejYSqL4B5pho4dx9ibb2u0iXTPBUoM6LlVHoKvret/KqdcDa7u++oWLwjn20jH1dt+4",
-	"WH12vflp85qD5sUvV6QG33qPbpfdaeSDmgJiEICURMzRhEIUyuyg/PmXK6Q4Cqp+/5lHmzmQtE4E/odK",
-	"qYPzV+c/dMUsgvRtU+isWujSnFw6jwSQcI6uybcq57Ou+AxPyJnnmNkmG/Dswft5AqtoWkdbBzraXZlZ",
-	"fFjULi9qZ75udgC+uqqdvaCe63W6i60VYDalbq+yAaCaFXM80Ju8b8MKawZ3Rg0PY/sVTN+9MzEZVNau",
-	"VacEoMHOs7eGr+G+4ms3zqb45p8Sd9lg6TF/55rFx5viN8R+aDfZPg5ysx/MP/93uFTYah/Puf1alOIo",
-	"PzprTU49u3ozj+76znfy/HwrAcsoKnhk6xt3mmW0so83aflKc8mF+MRcylug/4o1EcoiydXHWmzJblNc",
-	"e6N63XbTmg2p5pHaXamgjGQ1Qhjdzd0fHz3IKb/1KtTO8y14vlgCTBsK4jGt3+aJpkol434/4gGJplyq",
-	"8elgcKKlxV8BAAD//1P8VQIvVQAA",
+	"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",
+	"NGYhjpdMyPnb4+MTFXv8LwAA//93GaMMk1cAAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

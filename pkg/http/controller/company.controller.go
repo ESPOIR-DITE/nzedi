@@ -15,7 +15,7 @@ func (n NzediApiController) DeleteCompany(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&company); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if company.Id < 0 {
+	if company.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createCompany, err := n.CompanyFactory.CreateCompany(company)
@@ -45,7 +45,7 @@ func (n NzediApiController) PatchCompany(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&company); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if company.Id < 0 {
+	if company.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createCompany, err := n.CompanyFactory.CreateCompany(company)
@@ -65,7 +65,7 @@ func (n NzediApiController) PostCompany(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&company); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if company.Id < 0 {
+	if company.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createCompany, err := n.CompanyFactory.CreateCompany(company)
@@ -79,9 +79,9 @@ func (n NzediApiController) PostCompany(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, createResult)
 }
 
-func (n NzediApiController) GetCompanyUserId(ctx echo.Context, userId int) error {
+func (n NzediApiController) GetCompanyUserId(ctx echo.Context, userId string) error {
 	logger.Log.Info("Company receives get by user/manager operation.")
-	if userId < 0 {
+	if userId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("Error, missing value"))
 	}
 	deleteResult, err := n.CompanyService.ReadCompanyWithUserId(userId)
@@ -91,9 +91,9 @@ func (n NzediApiController) GetCompanyUserId(ctx echo.Context, userId int) error
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetCompanyId(ctx echo.Context, id int) error {
+func (n NzediApiController) GetCompanyId(ctx echo.Context, id string) error {
 	logger.Log.Info("Company receives get by user/manager operation.")
-	if id < 0 {
+	if id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("Error, missing value"))
 	}
 

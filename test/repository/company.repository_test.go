@@ -33,9 +33,26 @@ func TestCompanyCreate(t *testing.T) {
 	}
 	var account entity.Company
 	gofakeit.Struct(&account)
-	account.Id = 001
-	account.Manager = 1
+	account.Manager = "NQZkTv"
 	result, err := repository.CreateCompany(account)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	} else {
+		fmt.Println(result)
+	}
+}
+func TestCompanyDelete(t *testing.T) {
+	repository, err := IniCompanyRepositoryTest()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	var account entity.Company
+	gofakeit.Struct(&account)
+	account.Id = "iuuQkrtL"
+	account.Manager = "NQZkTv"
+	result, err := repository.DeleteCompany(account)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -51,8 +68,7 @@ func TestCompanyUpdate(t *testing.T) {
 	}
 	var account entity.Company
 	gofakeit.Struct(&account)
-	account.Id = 1
-	account.Manager = 1
+	account.Manager = "NQZkTv"
 	result, err := repository.UpdateCompany(account)
 	if err != nil {
 		fmt.Println(err)
@@ -67,7 +83,7 @@ func TestGetCompany(t *testing.T) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	result, err := repository.ReadCompany(1)
+	result, err := repository.ReadCompany("iuuQkrtL")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -95,7 +111,7 @@ func TestGetWithManager(t *testing.T) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	result, err := repository.ReadCompanyWithUserId(1)
+	result, err := repository.ReadCompanyWithUserId("NQZkTv")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

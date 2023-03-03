@@ -15,7 +15,7 @@ func (n NzediApiController) DeleteAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -44,7 +44,7 @@ func (n NzediApiController) PatchAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -64,7 +64,7 @@ func (n NzediApiController) PostAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -78,7 +78,7 @@ func (n NzediApiController) PostAccountState(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetAccountStateId(ctx echo.Context, id int) error {
+func (n NzediApiController) GetAccountStateId(ctx echo.Context, id string) error {
 	logger.Log.Info("Account state received get operation.")
 	deleteResult, err := n.AccountStateService.ReadAccountState(id)
 	if err != nil {

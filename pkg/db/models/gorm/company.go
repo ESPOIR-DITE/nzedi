@@ -7,8 +7,8 @@ import (
 )
 
 type Company struct {
-	Id        int `gorm:"primarykey"`
-	Manager   int
+	Id        string `gorm:"primarykey"`
+	Manager   string
 	Name      string
 	Url       *string
 	CreatedAt time.Time

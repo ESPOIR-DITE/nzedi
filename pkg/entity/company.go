@@ -1,8 +1,8 @@
 package entity
 
 type Company struct {
-	Id      int
-	Manager int
+	Id      string
+	Manager string
 	Name    string
 	Url     *string
 }

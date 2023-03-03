@@ -35,7 +35,7 @@ func (a AccountTypeRepositoryImpl) CreateAccountType(accountType entity.AccountT
 	return gormAccountType, nil
 }
 
-func (a AccountTypeRepositoryImpl) ReadAccountType(id int) (models.AccountType, error) {
+func (a AccountTypeRepositoryImpl) ReadAccountType(id string) (models.AccountType, error) {
 	gormAccountType := &gormModel.AccountType{}
 	if err := a.GormDB.First(&gormAccountType, id).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get AccountType with id: %d, err: %s", id, err))
@@ -44,7 +44,7 @@ func (a AccountTypeRepositoryImpl) ReadAccountType(id int) (models.AccountType, 
 	return gormAccountType, nil
 }
 
-func (a AccountTypeRepositoryImpl) ReadAccountTypeWithAccountId(id int) (models.AccountType, error) {
+func (a AccountTypeRepositoryImpl) ReadAccountTypeWithAccountId(id string) (models.AccountType, error) {
 	gormAccountType := &gormModel.AccountType{}
 	if err := a.GormDB.Where("account_id = ?", id).First(&gormAccountType).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to get account Type with accountId: %d : %s", id, err))

@@ -27,7 +27,7 @@ func (a AccountStateServiceImpl) CreateAccountState(accountState entity.AccountS
 	return AccountState.GetAccountState(), nil
 }
 
-func (a AccountStateServiceImpl) ReadAccountState(id int) (*entity.AccountState, error) {
+func (a AccountStateServiceImpl) ReadAccountState(id string) (*entity.AccountState, error) {
 	AccountState, err := a.AccountStateRepository.ReadAccountState(id)
 	if err != nil {
 		return nil, err

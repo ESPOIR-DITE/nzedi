@@ -33,8 +33,24 @@ func TestAccountStateCreate(t *testing.T) {
 	}
 	var account entity.AccountState
 	gofakeit.Struct(&account)
-	account.Id = 002
 	result, err := repository.CreateAccountState(account)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	} else {
+		fmt.Println(result)
+	}
+}
+func TestAccountStateDelete(t *testing.T) {
+	repository, err := IniAccountStateRepositoryTest()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	var account entity.AccountState
+	gofakeit.Struct(&account)
+	account.Id = "GJnJEBD"
+	result, err := repository.DeleteAccountState(account)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -50,7 +66,6 @@ func TestAccountStateUpdate(t *testing.T) {
 	}
 	var accountState entity.AccountState
 	gofakeit.Struct(&accountState)
-	accountState.Id = 1
 	result, err := repository.UpdateAccountState(accountState)
 	if err != nil {
 		fmt.Println(err)
@@ -65,7 +80,7 @@ func TestGetAccountState(t *testing.T) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	result, err := repository.ReadAccountState(1)
+	result, err := repository.ReadAccountState("GJnJEBD")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

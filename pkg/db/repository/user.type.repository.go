@@ -8,7 +8,7 @@ import (
 
 type UserTypeRepository interface {
 	CreateUserType(userType entity.UserType) (models.UserType, error)
-	ReadUserType(id int) (models.UserType, error)
+	ReadUserType(id string) (models.UserType, error)
 	UpdateUserType(User entity.UserType) (models.UserType, error)
 	DeleteUserType(User entity.UserType) (bool, error)
 	ReadUserTypeAll() ([]gorm.UserType, error)

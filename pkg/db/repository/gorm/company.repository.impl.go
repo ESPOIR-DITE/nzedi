@@ -35,16 +35,16 @@ func (c CompanyRepositoryImpl) CreateCompany(company entity.Company) (models.Com
 	return gormCompany, nil
 }
 
-func (c CompanyRepositoryImpl) ReadCompany(id int) (models.Company, error) {
+func (c CompanyRepositoryImpl) ReadCompany(id string) (models.Company, error) {
 	gormCompany := &gormModel.Company{}
-	if err := c.GormDB.First(&gormCompany, id).Error; err != nil {
+	if err := c.GormDB.Where("id = ?", id).First(&gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get Company with id: %d, err: %s", id, err))
 		return nil, err
 	}
 	return gormCompany, nil
 }
 
-func (c CompanyRepositoryImpl) ReadCompanyWithUserId(id int) (models.Company, error) {
+func (c CompanyRepositoryImpl) ReadCompanyWithUserId(id string) (models.Company, error) {
 	gormCompany := &gormModel.Company{}
 	if err := c.GormDB.Where("manager = ?", id).First(&gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to get Company Type with manager id: %d : %s", id, err))

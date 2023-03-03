@@ -1,0 +1,1215 @@
+openapi: 3.1.0
+info:
+  title: users
+  version: '1.0'
+  summary: A reusable Api that allows authentication and authorisation of user to access resources.
+servers:
+  - url: 'http://localhost:3002'
+paths:
+  '/user/{userId}':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    firstName: string
+                    lastName: string
+                    dateOfBirth: '2019-08-24'
+                    accountId: string
+        '404':
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+  /user:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    firstName: string
+                    lastName: string
+                    dateOfBirth: '2019-08-24'
+                    accountId: string
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      description: Create a new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  firstName: string
+                  lastName: string
+                  dateOfBirth: '2019-08-24'
+                  accountId: string
+    delete:
+      summary: ''
+      operationId: delete-user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+              examples:
+                Example 1:
+                  value: true
+        '400':
+          description: Bad Request
+      description: Delete existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  firstName: string
+                  lastName: string
+                  dateOfBirth: '2019-08-24'
+                  accountId: string
+    patch:
+      summary: ''
+      operationId: patch-user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    firstName: string
+                    lastName: string
+                    dateOfBirth: '2019-08-24'
+                    accountId: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Update an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  firstName: string
+                  lastName: string
+                  dateOfBirth: '2019-08-24'
+                  accountId: string
+    get:
+      summary: Get all users
+      operationId: get-user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                Example 1:
+                  value:
+                    - id: string
+                      firstName: string
+                      lastName: string
+                      dateOfBirth: '2019-08-24'
+                      accountId: string
+      description: retrieve all existing users.
+  /account:
+    post:
+      summary: Create Account endpoint
+      operationId: post-account
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    userName: Philio
+                    password: 4m9#jd
+                    email: example@test.com
+                    token: 390jsoi8fjw4
+                    date: '2019-08-24T14:15:22Z'
+                    company: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: create a new account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  userName: Philio
+                  password: 4m9#jd
+                  email: example@test.com
+                  token: 390jsoi8fjw4
+                  date: '2019-08-24T14:15:22Z'
+                  company: string
+    patch:
+      summary: Update Account endpoint
+      operationId: patch-account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    userName: Philio
+                    password: 4m9#jd
+                    email: example@test.com
+                    token: 390jsoi8fjw4
+                    date: '2019-08-24T14:15:22Z'
+                    company: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Update existing account. This action can only be done by an admin.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  userName: Philio
+                  password: 4m9#jd
+                  email: example@test.com
+                  token: 390jsoi8fjw4
+                  date: '2019-08-24T14:15:22Z'
+                  company: string
+    delete:
+      summary: Delete Account endpoint
+      operationId: delete-account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+              examples:
+                Example 1:
+                  value: true
+                Example 2:
+                  value: false
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Delete existing account. This action may never trigered. but admin may be allowed to this endpoint.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+        description: ''
+    put:
+      summary: Login endpoint
+      operationId: put-account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    userName: string
+                    password: string
+                    email: string
+                    token: string
+                    date: '2019-08-24T14:15:22Z'
+                    company: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: User to provide password with either username or email address to get a token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+    get:
+      summary: Get all accounts
+      operationId: get-account
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Retrieve all the existing accounts.
+  '/account/{accountId}':
+    parameters:
+      - schema:
+          type: string
+        name: accountId
+        in: path
+        required: true
+    get:
+      summary: GET account endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    userName: string
+                    password: string
+                    email: string
+                    token: string
+                    date: '2019-08-24T14:15:22Z'
+                    company: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      operationId: get-account-accountId
+      description: Get an existing account with accountId.
+  '/user/account/{accountId}':
+    parameters:
+      - schema:
+          type: string
+        name: accountId
+        in: path
+        required: true
+    get:
+      summary: GET user with account endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    firstName: string
+                    lastName: string
+                    dateOfBirth: '2019-08-24'
+                    accountId: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      operationId: get-user-accountId
+      description: Allows to retreive a user with an accountId.
+  /account-type:
+    post:
+      summary: Create account type endpoint
+      operationId: post-account-type
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    accountId: string
+                    userTypeId: string
+                    accountState: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Create a new account type endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  accountId: string
+                  userTypeId: string
+                  accountState: string
+    patch:
+      summary: Update account type endpoint
+      operationId: patch-account-type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    accountId: string
+                    userTypeId: string
+                    accountState: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      description: Update an existing account type endpoint.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  accountId: string
+                  userTypeId: string
+                  accountState: string
+    delete:
+      summary: Delete account type endpoint
+      operationId: delete-account-type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    accountId: string
+                    userTypeId: string
+                    accountState: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Delete an existing account type that is not linked to either an existing user nor to an existing account.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  accountId: string
+                  userTypeId: string
+                  accountState: string
+    get:
+      summary: Read all account types
+      operationId: get-account-type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountType'
+              examples:
+                Example 1:
+                  value:
+                    - id: string
+                      accountId: string
+                      userTypeId: string
+                      accountState: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Read all existing account types.
+  '/account-type/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GET account type endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    accountId: string
+                    userTypeId: string
+                    accountState: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: get-account-type-id
+      description: GET an existing account type with account type id.
+  /user-type:
+    get:
+      summary: GET all user types endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserType'
+              examples:
+                Example 1:
+                  value:
+                    - id: string
+                      name: string
+                      description: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      operationId: get-user-type
+      description: Retreive all existing user types.
+    post:
+      summary: Post user type endpoint
+      operationId: post-user-type
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Create new user type endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+        description: ''
+    patch:
+      summary: PATCH user type
+      operationId: patch-user-type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserType'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Update an existing user type.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+    delete:
+      summary: DELETE user type endpoint
+      operationId: delete-user-type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+              examples:
+                Example 1:
+                  value: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Delete an existing user type.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserType'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+  '/user-type/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GET  user type endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserType'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: get-user-type-id
+      description: Retreive an existing user type with an id.
+  /company:
+    get:
+      summary: Company get endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+              examples:
+                Example 1:
+                  value:
+                    - id: string
+                      name: string
+                      url: string
+                      manager: df1f4ksd
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: get-company
+      description: Retreive all existing companies.
+    post:
+      summary: Company Post endpoint
+      operationId: post-company
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    url: string
+                    manager: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Create a new campany
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  url: string
+                  manager: string
+        description: ''
+    patch:
+      summary: Patch campany endpoint
+      operationId: patch-company
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    url: string
+                    manager: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Update an existing company.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  url: string
+                  manager: string
+    delete:
+      summary: DELETE company endpoint.
+      operationId: delete-company
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+              examples:
+                Example 1:
+                  value: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  url: string
+                  manager: string
+        description: ''
+      description: Delete an existing campany.
+    parameters: []
+  '/company/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Company GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    url: string
+                    manager: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: get-company-id
+      description: Retreive an existing company with an id.
+  /account-state:
+    get:
+      summary: GET account state endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountState'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+      operationId: get-account-state
+      description: retreive all existing account states.
+    post:
+      summary: Post account state endpoint
+      operationId: post-account-state
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountState'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Create a new account state
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountState'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties: {}
+    patch:
+      summary: PATCH account state endpoint
+      operationId: patch-account-state
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountState'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Update account state
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountState'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+    delete:
+      summary: DELETE account state endpoint
+      operationId: delete-account-state
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+              examples:
+                Example 1:
+                  value: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      description: Delete an existing account state.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountState'
+            examples:
+              Example 1:
+                value:
+                  id: string
+                  name: string
+                  description: string
+  '/company/user/{userId}':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: GET Company endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    url: string
+                    manager: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      operationId: get-company-userId
+      description: Get an existing company with a manager's id.
+  '/account-state/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GET account state endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountState'
+              examples:
+                Example 1:
+                  value:
+                    id: string
+                    name: string
+                    description: string
+        '404':
+          description: Not Found
+      operationId: get-account-state-id
+      description: get an existing account state with an id.
+  '/account-type/account/{accountId}':
+    parameters:
+      - schema:
+          type: string
+        name: accountId
+        in: path
+        required: true
+    get:
+      summary: GET  account types endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountType'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      operationId: get-account-type-accountId
+      description: Retreive all account type linked to an account
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      examples:
+        - id: string
+          firstName: string
+          lastName: string
+          dateOfBirth: '2019-08-24'
+          accountId: string
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          example: '2019-08-24'
+        accountId:
+          type: string
+      required:
+        - id
+        - firstName
+        - lastName
+        - accountId
+    Account:
+      title: Account
+      type: object
+      examples:
+        - id: string
+          userName: string
+          password: string
+          email: string
+          token: string
+          date: '2019-08-24T14:15:22Z'
+      properties:
+        id:
+          type: string
+        userName:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        token:
+          type: string
+        date:
+          type: string
+      required:
+        - id
+        - password
+        - email
+        - date
+    AccountType:
+      title: AccountType
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        userTypeId:
+          type: string
+        accountState:
+          type: string
+      required:
+        - id
+        - accountId
+        - userTypeId
+        - accountState
+      examples:
+        - id: string
+          accountId: string
+          userTypeId: string
+          accountState: string
+    UserType:
+      title: UserType
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+      examples:
+        - id: string
+          name: string
+          description: string
+    Company:
+      title: Company
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        manager:
+          type: string
+      required:
+        - id
+        - name
+        - manager
+      examples:
+        - id: string
+          name: string
+          url: string
+          manager: string
+    AccountState:
+      title: AccountState
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+      examples:
+        - id: string
+          name: string
+          description: string

@@ -5,8 +5,8 @@ import (
 )
 
 type User struct {
-	Id          int
-	AccountId   int
+	Id          string
+	AccountId   string
 	DateOfBirth time.Time
 	FirstName   string
 	LastName    string

@@ -14,12 +14,13 @@ type NzediApiController struct {
 	UserService         service.UserService
 	UserTypeService     service.UserTypeService
 
-	AccountFactory      factory.AccountFactory
-	AccountStateFactory factory.AccountStateFactory
-	AccountTypeFactory  factory.AccountType
-	CompanyFactory      factory.CompanyFactory
-	UserFactory         factory.UserFactory
-	UserTypeFactory     factory.UserTypeFactory
+	AccountFactory        factory.AccountFactory
+	AccountStateFactory   factory.AccountStateFactory
+	AccountTypeFactory    factory.AccountType
+	CompanyFactory        factory.CompanyFactory
+	UserFactory           factory.UserFactory
+	UserTypeFactory       factory.UserTypeFactory
+	AuthenticationService service.AuthenticationService
 }
 
 func NewNzediApiController(
@@ -30,15 +31,17 @@ func NewNzediApiController(
 	userService service.UserService,
 	userTypeService service.UserTypeService,
 	accountFactory factory.AccountFactory,
+	authenticationService service.AuthenticationService,
 ) *NzediApiController {
 	return &NzediApiController{
-		AccountService:      accountService,
-		AccountStateService: accountStateService,
-		AccountTypeService:  accountTypeService,
-		CompanyService:      companyService,
-		UserService:         userService,
-		UserTypeService:     userTypeService,
-		AccountFactory:      accountFactory,
+		AccountService:        accountService,
+		AccountStateService:   accountStateService,
+		AccountTypeService:    accountTypeService,
+		CompanyService:        companyService,
+		UserService:           userService,
+		UserTypeService:       userTypeService,
+		AccountFactory:        accountFactory,
+		AuthenticationService: authenticationService,
 	}
 }
 

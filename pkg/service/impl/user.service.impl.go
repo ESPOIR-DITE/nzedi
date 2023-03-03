@@ -25,7 +25,7 @@ func (u UserServiceImpl) CreateUser(User entity.User) (*entity.User, error) {
 	return user.GetUser(), nil
 }
 
-func (u UserServiceImpl) ReadUser(id int) (*entity.User, error) {
+func (u UserServiceImpl) ReadUser(id string) (*entity.User, error) {
 	user, err := u.UserRepository.ReadUser(id)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (u UserServiceImpl) ReadUser(id int) (*entity.User, error) {
 	return user.GetUser(), nil
 }
 
-func (u UserServiceImpl) ReadUserWithAccountId(id int) (*entity.User, error) {
+func (u UserServiceImpl) ReadUserWithAccountId(id string) (*entity.User, error) {
 	user, err := u.UserRepository.ReadUserWithAccountId(id)
 	if err != nil {
 		return nil, err

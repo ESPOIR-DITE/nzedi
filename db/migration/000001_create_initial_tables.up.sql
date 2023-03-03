@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS "account"
 (
-    "id"         SERIAL PRIMARY KEY,
+    "id"         varchar PRIMARY KEY,
     "date"       timestamptz,
     "password"   varchar,
     "email"      varchar     NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS "account"
 
 CREATE TABLE IF NOT EXISTS "account_state"
 (
-    "id"          SERIAL PRIMARY KEY,
+    "id"          varchar PRIMARY KEY,
     "name"        varchar,
     "description" varchar,
     "created_at"  timestamptz NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "account_state"
 
 CREATE TABLE IF NOT EXISTS "user_type"
 (
-    "id"          SERIAL PRIMARY KEY,
+    "id"          varchar PRIMARY KEY,
     "name"        varchar,
     "description" varchar,
     "created_at"  timestamptz NOT NULL,
@@ -30,18 +30,18 @@ CREATE TABLE IF NOT EXISTS "user_type"
 
 CREATE TABLE IF NOT EXISTS "account_type"
 (
-    "id"            SERIAL PRIMARY KEY,
-    "account_id"    int         NOT NULL,
-    "account_state" int         NOT NULL,
-    "user_type_id"  int         NOT NULL,
+    "id"            varchar PRIMARY KEY,
+    "account_id"    varchar     NOT NULL,
+    "account_state" varchar     NOT NULL,
+    "user_type_id"  varchar     NOT NULL,
     "created_at"    timestamptz NOT NULL,
     "updated_at"    timestamptz NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "company"
 (
-    "id"         SERIAL PRIMARY KEY,
-    "manager"    int         NOT NULL,
+    "id"         varchar PRIMARY KEY,
+    "manager"    varchar     NOT NULL UNIQUE,
     "name"       varchar     NOT NULL,
     "url"        varchar,
     "created_at" timestamptz NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS "company"
 
 CREATE TABLE IF NOT EXISTS "user"
 (
-    "id"            SERIAL PRIMARY KEY,
-    "account_id"    int         NOT NULL,
+    "id"            varchar PRIMARY KEY,
+    "account_id"    varchar     NOT NULL,
     "date_of_birth" timestamptz,
     "firstname"     varchar     NOT NULL,
     "lastname"      varchar     NOT NULL,

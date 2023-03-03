@@ -3,7 +3,6 @@ module github.com/ESPOIR-DITE/nzedi.git
 go 1.19
 
 require (
-	github.com/ESPOIR-DITE/ditkay-eshop v0.0.0-20230221044442-5753d064dc4a
 	github.com/deepmap/oapi-codegen v1.12.4
 	github.com/getkin/kin-openapi v0.114.0
 	github.com/golang-migrate/migrate/v4 v4.15.2

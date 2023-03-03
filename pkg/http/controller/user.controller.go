@@ -15,7 +15,7 @@ func (n NzediApiController) DeleteUser(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userObject); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userObject.Id < 0 {
+	if userObject.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUser, err := n.UserFactory.CreateUser(userObject)
@@ -45,7 +45,7 @@ func (n NzediApiController) PatchUser(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userObject); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userObject.Id < 0 {
+	if userObject.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUser, err := n.UserFactory.CreateUser(userObject)
@@ -65,7 +65,7 @@ func (n NzediApiController) PostUser(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userObject); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userObject.Id < 0 {
+	if userObject.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUser, err := n.UserFactory.CreateUser(userObject)
@@ -78,26 +78,32 @@ func (n NzediApiController) PostUser(ctx echo.Context) error {
 	}
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
-func (n NzediApiController) GetUserAccountId(ctx echo.Context, accountId int) error {
+func (n NzediApiController) GetUserAccountId(ctx echo.Context, accountId string) error {
 	logger.Log.Info("User receives get with account id operation.")
-	if accountId < 0 {
+	if accountId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
 
 	deleteResult, err := n.UserService.ReadUserWithAccountId(accountId)
 	if err != nil {
+		if err.Error() == "record not found" {
+			ctx.JSON(http.StatusOK, err)
+		}
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetUsersUserId(ctx echo.Context, userId int) error {
+func (n NzediApiController) GetUsersUserId(ctx echo.Context, userId string) error {
 	logger.Log.Info("User receives get operation.")
-	if userId < 0 {
+	if userId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	deleteResult, err := n.UserService.ReadUserWithAccountId(userId)
+	deleteResult, err := n.UserService.ReadUser(userId)
 	if err != nil {
+		if err.Error() == "record not found" {
+			ctx.JSON(http.StatusOK, err)
+		}
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
 	return ctx.JSON(http.StatusOK, deleteResult)

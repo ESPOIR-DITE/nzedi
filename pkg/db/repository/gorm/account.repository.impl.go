@@ -33,9 +33,9 @@ func (a AccountRepositoryImpl) CreateAccount(account entity.Account) (models.Acc
 	return gormAccount, nil
 }
 
-func (a AccountRepositoryImpl) ReadAccount(id int) (models.Account, error) {
+func (a AccountRepositoryImpl) ReadAccount(id string) (models.Account, error) {
 	gormAccount := &gormModel.Account{}
-	if err := a.GormDB.First(&gormAccount, id).Error; err != nil {
+	if err := a.GormDB.Where("id = ?", id).First(&gormAccount).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get account with id: %d, err: %s", id, err))
 		return nil, err
 	}
@@ -64,6 +64,15 @@ func (a AccountRepositoryImpl) ReadAccountAll() ([]gormModel.Account, error) {
 	gormAccount := []gormModel.Account{}
 	if err := a.GormDB.Find(&gormAccount).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to reads Accounts"))
+		return nil, err
+	}
+	return gormAccount, nil
+}
+
+func (a AccountRepositoryImpl) UpdateToken(id, token string) (models.Account, error) {
+	gormAccount := &gormModel.Account{}
+	if err := a.GormDB.Model(gormAccount).Where("id = ?", id).Update("token", token).Error; err != nil {
+		logger.Log.Error(fmt.Errorf("failed to update token with Account id: %s : %s", id, err))
 		return nil, err
 	}
 	return gormAccount, nil

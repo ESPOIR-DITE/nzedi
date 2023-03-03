@@ -15,7 +15,7 @@ func (n NzediApiController) DeleteUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -45,7 +45,7 @@ func (n NzediApiController) PatchUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -65,7 +65,7 @@ func (n NzediApiController) PostUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -79,9 +79,9 @@ func (n NzediApiController) PostUserType(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, deleteResult)
 }
 
-func (n NzediApiController) GetUserTypeId(ctx echo.Context, id int) error {
+func (n NzediApiController) GetUserTypeId(ctx echo.Context, id string) error {
 	logger.Log.Info("User type controller receives get operation.")
-	if id < 0 {
+	if id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
 	deleteResult, err := n.UserTypeService.ReadUserType(id)

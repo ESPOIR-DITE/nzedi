@@ -7,10 +7,10 @@ import (
 )
 
 type AccountType struct {
-	Id           int `gorm:"primarykey"`
-	AccountId    int `sql:"account_id"`
-	AccountState int `sql:"account_state"`
-	UserTypeId   int `sql:"user_type_id"`
+	Id           string `gorm:"primarykey"`
+	AccountId    string `sql:"account_id"`
+	AccountState string `sql:"account_state"`
+	UserTypeId   string `sql:"user_type_id"`
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }

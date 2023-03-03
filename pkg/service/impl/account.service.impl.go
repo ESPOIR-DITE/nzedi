@@ -26,7 +26,7 @@ func (a AccountServiceImpl) CreateAccount(account entity.Account) (*entity.Accou
 	return acc.GetAccount(), nil
 }
 
-func (a AccountServiceImpl) ReadAccount(id int) (*entity.Account, error) {
+func (a AccountServiceImpl) ReadAccount(id string) (*entity.Account, error) {
 	acc, err := a.AccountRepository.ReadAccount(id)
 	if err != nil {
 		return nil, err
@@ -56,6 +56,14 @@ func (a AccountServiceImpl) ReadAccountAll() ([]entity.Account, error) {
 		return nil, err
 	}
 	return a.getAccountList(acc), nil
+}
+
+func (a AccountServiceImpl) UpdateToken(id, token string) (*entity.Account, error) {
+	acc, err := a.AccountRepository.UpdateToken(id, token)
+	if err != nil {
+		return nil, err
+	}
+	return acc.GetAccount(), nil
 }
 
 func (a AccountServiceImpl) UserLogin(account entity.Account) (*entity.Account, error) {

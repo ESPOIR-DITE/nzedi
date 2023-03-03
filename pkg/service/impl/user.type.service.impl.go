@@ -27,7 +27,7 @@ func (u UserTypeServiceImpl) CreateUserType(userType entity.UserType) (*entity.U
 	return userT.GetUserType(), nil
 }
 
-func (u UserTypeServiceImpl) ReadUserType(id int) (*entity.UserType, error) {
+func (u UserTypeServiceImpl) ReadUserType(id string) (*entity.UserType, error) {
 	userType, err := u.UserTypeRepository.ReadUserType(id)
 	if err != nil {
 		return nil, err

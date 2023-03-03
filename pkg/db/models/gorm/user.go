@@ -7,8 +7,8 @@ import (
 )
 
 type User struct {
-	Id          int       `gorm:"primarykey"`
-	AccountId   int       `sql:"account_id"`
+	Id          string    `gorm:"primarykey"`
+	AccountId   string    `sql:"account_id"`
 	DateOfBirth time.Time `sql:"date_of_birth"`
 	Firstname   string
 	Lastname    string

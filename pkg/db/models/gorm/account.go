@@ -7,7 +7,7 @@ import (
 )
 
 type Account struct {
-	Id        int `gorm:"primarykey"`
+	Id        string `gorm:"primarykey"`
 	Date      time.Time
 	Email     string
 	Password  string

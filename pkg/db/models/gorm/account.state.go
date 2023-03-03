@@ -7,7 +7,7 @@ import (
 )
 
 type AccountState struct {
-	Id          int `gorm:"primarykey"`
+	Id          string `gorm:"primarykey"`
 	Name        string
 	Description *string
 	CreatedAt   time.Time

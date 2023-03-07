@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS "account"
     "id"         varchar PRIMARY KEY,
     "date"       timestamptz,
     "password"   varchar,
-    "email"      varchar     NOT NULL,
+    "email"      varchar     NOT NULL UNIQUE,
     "token"      varchar,
     "username"   varchar,
     "created_at" timestamptz NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "account"
 CREATE TABLE IF NOT EXISTS "account_state"
 (
     "id"          varchar PRIMARY KEY,
-    "name"        varchar,
+    "name"        varchar UNIQUE,
     "description" varchar,
     "created_at"  timestamptz NOT NULL,
     "updated_at"  timestamptz NOT NULL
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "account_state"
 CREATE TABLE IF NOT EXISTS "user_type"
 (
     "id"          varchar PRIMARY KEY,
-    "name"        varchar,
+    "name"        varchar UNIQUE,
     "description" varchar,
     "created_at"  timestamptz NOT NULL,
     "updated_at"  timestamptz NOT NULL

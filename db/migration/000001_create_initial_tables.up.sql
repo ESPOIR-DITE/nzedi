@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS "company"
 CREATE TABLE IF NOT EXISTS "user"
 (
     "id"            varchar PRIMARY KEY,
-    "account_id"    varchar     NOT NULL,
+    "account_id"    varchar     NOT NULL unique,
     "date_of_birth" timestamptz,
     "firstname"     varchar     NOT NULL,
     "lastname"      varchar     NOT NULL,

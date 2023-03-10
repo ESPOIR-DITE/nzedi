@@ -100,7 +100,7 @@ paths:
                   id: string
                   firstName: string
                   lastName: string
-                  dateOfBirth: '2019-08-24'
+                  dateOfBirth: string
                   accountId: string
     patch:
       summary: ''
@@ -1088,7 +1088,7 @@ components:
         - id: string
           firstName: string
           lastName: string
-          dateOfBirth: '2019-08-24'
+          dateOfBirth: string
           accountId: string
       properties:
         id:
@@ -1100,7 +1100,6 @@ components:
           type: string
         dateOfBirth:
           type: string
-          example: '2019-08-24'
         accountId:
           type: string
       required:
@@ -1117,7 +1116,7 @@ components:
           password: string
           email: string
           token: string
-          date: '2019-08-24T14:15:22Z'
+          date: string
       properties:
         id:
           type: string

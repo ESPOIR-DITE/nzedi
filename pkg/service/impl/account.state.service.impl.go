@@ -1,7 +1,7 @@
 package impl
 
 import (
-	"github.com/ESPOIR-DITE/nzedi.git/pkg/db/models"
+	gormModel "github.com/ESPOIR-DITE/nzedi.git/pkg/db/models/gorm"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/db/repository"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/entity"
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/service"
@@ -27,7 +27,7 @@ func (a AccountStateServiceImpl) CreateAccountState(accountState entity.AccountS
 	return AccountState.GetAccountState(), nil
 }
 
-func (a AccountStateServiceImpl) ReadAccountState(id int) (*entity.AccountState, error) {
+func (a AccountStateServiceImpl) ReadAccountState(id string) (*entity.AccountState, error) {
 	AccountState, err := a.AccountStateRepository.ReadAccountState(id)
 	if err != nil {
 		return nil, err
@@ -59,7 +59,7 @@ func (a AccountStateServiceImpl) ReadAccountStateAll() ([]entity.AccountState, e
 	return a.getAccountStateList(AccountState), nil
 }
 
-func (a AccountStateServiceImpl) getAccountStateList(accountList []models.AccountState) []entity.AccountState {
+func (a AccountStateServiceImpl) getAccountStateList(accountList []gormModel.AccountState) []entity.AccountState {
 	var accountStateAll []entity.AccountState
 	if accountList == nil {
 		return accountStateAll

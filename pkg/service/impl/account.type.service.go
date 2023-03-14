@@ -25,7 +25,7 @@ func (a AccountTypeServiceImpl) CreateAccountType(accountType entity.AccountType
 	return AccountType.GetAccountType(), nil
 }
 
-func (a AccountTypeServiceImpl) ReadAccountType(id int) (*entity.AccountType, error) {
+func (a AccountTypeServiceImpl) ReadAccountType(id string) (*entity.AccountType, error) {
 	AccountType, err := a.AccountTypeRepository.ReadAccountType(id)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (a AccountTypeServiceImpl) ReadAccountType(id int) (*entity.AccountType, er
 	return AccountType.GetAccountType(), nil
 }
 
-func (a AccountTypeServiceImpl) ReadAccountTypeWithAccountId(id int) (*entity.AccountType, error) {
+func (a AccountTypeServiceImpl) ReadAccountTypeWithAccountId(id string) (*entity.AccountType, error) {
 	AccountType, err := a.AccountTypeRepository.ReadAccountTypeWithAccountId(id)
 	if err != nil {
 		return nil, err

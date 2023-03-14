@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteUserType(ctx echo.Context) error {
@@ -16,7 +15,7 @@ func (n NzediApiController) DeleteUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -46,7 +45,7 @@ func (n NzediApiController) PatchUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -66,7 +65,7 @@ func (n NzediApiController) PostUserType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&userType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if userType.Id < 0 {
+	if userType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	createUserType, err := n.UserTypeFactory.CreateUserType(userType)
@@ -85,11 +84,7 @@ func (n NzediApiController) GetUserTypeId(ctx echo.Context, id string) error {
 	if id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	userTypeId, err := strconv.Atoi(id)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.UserTypeService.ReadUserType(userTypeId)
+	deleteResult, err := n.UserTypeService.ReadUserType(id)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

@@ -25,7 +25,7 @@ func (c CompanyServiceImpl) CreateCompany(Company entity.Company) (*entity.Compa
 	return company.GetCompany(), err
 }
 
-func (c CompanyServiceImpl) ReadCompany(id int) (*entity.Company, error) {
+func (c CompanyServiceImpl) ReadCompany(id string) (*entity.Company, error) {
 	company, err := c.CompanyServiceRepository.ReadCompany(id)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (c CompanyServiceImpl) ReadCompany(id int) (*entity.Company, error) {
 	return company.GetCompany(), err
 }
 
-func (c CompanyServiceImpl) ReadCompanyWithUserId(id int) (*entity.Company, error) {
+func (c CompanyServiceImpl) ReadCompanyWithUserId(id string) (*entity.Company, error) {
 	company, err := c.CompanyServiceRepository.ReadCompanyWithUserId(id)
 	if err != nil {
 		return nil, err

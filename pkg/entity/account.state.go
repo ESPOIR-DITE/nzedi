@@ -1,7 +1,7 @@
 package entity
 
 type AccountState struct {
-	Id          int
+	Id          string
 	Name        string
 	Description *string
 }

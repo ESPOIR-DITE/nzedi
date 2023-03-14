@@ -6,8 +6,8 @@ import (
 
 type AccountTypeService interface {
 	CreateAccountType(accountType entity.AccountType) (*entity.AccountType, error)
-	ReadAccountType(id int) (*entity.AccountType, error)
-	ReadAccountTypeWithAccountId(id int) (*entity.AccountType, error)
+	ReadAccountType(id string) (*entity.AccountType, error)
+	ReadAccountTypeWithAccountId(id string) (*entity.AccountType, error)
 	UpdateAccountType(accountState entity.AccountType) (*entity.AccountType, error)
 	DeleteAccountType(accountState entity.AccountType) (bool, error)
 	ReadAccountTypeAll() ([]entity.AccountType, error)

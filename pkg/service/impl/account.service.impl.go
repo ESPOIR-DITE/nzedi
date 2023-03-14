@@ -26,7 +26,7 @@ func (a AccountServiceImpl) CreateAccount(account entity.Account) (*entity.Accou
 	return acc.GetAccount(), nil
 }
 
-func (a AccountServiceImpl) ReadAccount(id int) (*entity.Account, error) {
+func (a AccountServiceImpl) ReadAccount(id string) (*entity.Account, error) {
 	acc, err := a.AccountRepository.ReadAccount(id)
 	if err != nil {
 		return nil, err
@@ -58,6 +58,14 @@ func (a AccountServiceImpl) ReadAccountAll() ([]entity.Account, error) {
 	return a.getAccountList(acc), nil
 }
 
+func (a AccountServiceImpl) UpdateToken(id, token string) (*entity.Account, error) {
+	acc, err := a.AccountRepository.UpdateToken(id, token)
+	if err != nil {
+		return nil, err
+	}
+	return acc.GetAccount(), nil
+}
+
 func (a AccountServiceImpl) UserLogin(account entity.Account) (*entity.Account, error) {
 	if account.Email != "" {
 		Account, err := a.AccountRepository.LoginWithEmail(account)
@@ -66,7 +74,7 @@ func (a AccountServiceImpl) UserLogin(account entity.Account) (*entity.Account, 
 		}
 		return Account.GetAccount(), nil
 	}
-	if account.UserName != nil {
+	if account.Username != "" {
 		Account, err := a.AccountRepository.LoginWithUserName(account)
 		if err != nil {
 			return Account.GetAccount(), err
@@ -84,12 +92,11 @@ func (a AccountServiceImpl) getAccountList(accountList []gorm.Account) []entity.
 	for _, account := range accountList {
 		accountAll = append(accountAll, entity.Account{
 			Id:       account.Id,
-			Company:  account.Company,
 			Date:     account.Date,
 			Email:    account.Email,
 			Password: account.Password,
 			Token:    account.Token,
-			UserName: account.UserName,
+			Username: account.Username,
 		})
 	}
 	return accountAll

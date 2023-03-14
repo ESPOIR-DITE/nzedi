@@ -34,9 +34,9 @@ func (a AccountStateRepositoryImpl) CreateAccountState(accountState entity.Accou
 	return gormAccountState, nil
 }
 
-func (a AccountStateRepositoryImpl) ReadAccountState(id int) (models.AccountState, error) {
+func (a AccountStateRepositoryImpl) ReadAccountState(id string) (models.AccountState, error) {
 	gormAccountState := &gormModel.AccountState{}
-	if err := a.GormDB.First(&gormAccountState, id).Error; err != nil {
+	if err := a.GormDB.Where("id = ? ", id).First(&gormAccountState).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get accountState with id: %d, err: %s", id, err))
 		return nil, err
 	}
@@ -61,8 +61,8 @@ func (a AccountStateRepositoryImpl) DeleteAccountState(accountState entity.Accou
 	return true, nil
 }
 
-func (a AccountStateRepositoryImpl) ReadAccountStateAll() ([]models.AccountState, error) {
-	gormAccountState := []models.AccountState{}
+func (a AccountStateRepositoryImpl) ReadAccountStateAll() ([]gormModel.AccountState, error) {
+	var gormAccountState []gormModel.AccountState
 	if err := a.GormDB.Find(&gormAccountState).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to reads account state"))
 		return nil, err

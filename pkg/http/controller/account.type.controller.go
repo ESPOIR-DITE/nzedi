@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteAccountType(ctx echo.Context) error {
@@ -16,7 +15,7 @@ func (n NzediApiController) DeleteAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
@@ -45,7 +44,7 @@ func (n NzediApiController) PatchAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(state)
@@ -65,7 +64,7 @@ func (n NzediApiController) PostAccountType(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&accountType); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if accountType.Id < 0 {
+	if accountType.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccountType, err := n.AccountTypeFactory.CreateAccountTypeFactory(accountType)
@@ -84,11 +83,7 @@ func (n NzediApiController) GetAccountTypeAccountId(ctx echo.Context, accountId 
 	if accountId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	id, err := strconv.Atoi(accountId)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.AccountTypeService.ReadAccountTypeWithAccountId(id)
+	deleteResult, err := n.AccountTypeService.ReadAccountTypeWithAccountId(accountId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
@@ -100,11 +95,8 @@ func (n NzediApiController) GetAccountTypeId(ctx echo.Context, accountId string)
 	if accountId == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing value"))
 	}
-	id, err := strconv.Atoi(accountId)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.AccountTypeService.ReadAccountType(id)
+
+	deleteResult, err := n.AccountTypeService.ReadAccountType(accountId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

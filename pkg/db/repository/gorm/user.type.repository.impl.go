@@ -33,9 +33,9 @@ func (u UserTypeRepositoryImpl) CreateUserType(userType entity.UserType) (models
 	return gormUserType, nil
 }
 
-func (u UserTypeRepositoryImpl) ReadUserType(id int) (models.UserType, error) {
+func (u UserTypeRepositoryImpl) ReadUserType(id string) (models.UserType, error) {
 	gormUserType := &gormModel.UserType{}
-	if err := u.GormDB.First(&gormUserType, id).Error; err != nil {
+	if err := u.GormDB.Where("id = ?", id).First(&gormUserType).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get UserType with id: %d, err: %s", id, err))
 		return nil, err
 	}

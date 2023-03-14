@@ -8,8 +8,8 @@ import (
 
 type UserRepository interface {
 	CreateUser(User entity.User) (models.User, error)
-	ReadUser(id int) (models.User, error)
-	ReadUserWithAccountId(id int) (models.User, error)
+	ReadUser(id string) (models.User, error)
+	ReadUserWithAccountId(id string) (models.User, error)
 	UpdateUser(User entity.User) (models.User, error)
 	DeleteUser(User entity.User) (bool, error)
 	ReadUserAll() ([]gormModel.User, error)

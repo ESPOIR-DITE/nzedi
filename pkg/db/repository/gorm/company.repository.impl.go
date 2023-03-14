@@ -27,7 +27,7 @@ func NewCompanyRepositoryImpl(gormDB *gorm.DB,
 var _ repository.CompanyRepository = &CompanyRepositoryImpl{}
 
 func (c CompanyRepositoryImpl) CreateCompany(company entity.Company) (models.Company, error) {
-	var gormCompany *gormModel.Company = c.CompanyFactory.CreateCompany(company).(*gormModel.Company)
+	var gormCompany gormModel.Company = c.CompanyFactory.CreateCompany(company).(gormModel.Company)
 	if err := c.GormDB.Create(&gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to create Company with Name: %s, err: %s", company.Name, err))
 		return nil, err
@@ -35,16 +35,16 @@ func (c CompanyRepositoryImpl) CreateCompany(company entity.Company) (models.Com
 	return gormCompany, nil
 }
 
-func (c CompanyRepositoryImpl) ReadCompany(id int) (models.Company, error) {
+func (c CompanyRepositoryImpl) ReadCompany(id string) (models.Company, error) {
 	gormCompany := &gormModel.Company{}
-	if err := c.GormDB.First(&gormCompany, id).Error; err != nil {
+	if err := c.GormDB.Where("id = ?", id).First(&gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Printf("faile to get Company with id: %d, err: %s", id, err))
 		return nil, err
 	}
 	return gormCompany, nil
 }
 
-func (c CompanyRepositoryImpl) ReadCompanyWithUserId(id int) (models.Company, error) {
+func (c CompanyRepositoryImpl) ReadCompanyWithUserId(id string) (models.Company, error) {
 	gormCompany := &gormModel.Company{}
 	if err := c.GormDB.Where("manager = ?", id).First(&gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to get Company Type with manager id: %d : %s", id, err))
@@ -54,7 +54,7 @@ func (c CompanyRepositoryImpl) ReadCompanyWithUserId(id int) (models.Company, er
 }
 
 func (c CompanyRepositoryImpl) UpdateCompany(company entity.Company) (models.Company, error) {
-	var gormCompany *gormModel.Company = c.CompanyFactory.CreateCompany(company).(*gormModel.Company)
+	var gormCompany gormModel.Company = c.CompanyFactory.CreateCompany(company).(gormModel.Company)
 	if err := c.GormDB.Where("id = ?", company.Id).Updates(gormCompany).Error; err != nil {
 		logger.Log.Error(fmt.Errorf("failed to update company id: %d", company.Id))
 		return nil, err

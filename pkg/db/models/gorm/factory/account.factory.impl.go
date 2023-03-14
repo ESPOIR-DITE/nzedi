@@ -16,12 +16,11 @@ func NewAccountFactory() *AccountFactoryImpl {
 func (a AccountFactoryImpl) CreateAccount(account entity.Account) models.Account {
 	return &gorm.Account{
 		Id:       account.Id,
-		Company:  account.Company,
 		Date:     account.Date,
 		Email:    account.Email,
 		Password: account.Password,
 		Token:    account.Token,
-		UserName: account.UserName,
+		Username: account.Username,
 	}
 }
 

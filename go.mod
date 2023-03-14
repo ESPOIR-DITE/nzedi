@@ -3,7 +3,6 @@ module github.com/ESPOIR-DITE/nzedi.git
 go 1.19
 
 require (
-	github.com/ESPOIR-DITE/ditkay-eshop v0.0.0-20230221044442-5753d064dc4a
 	github.com/deepmap/oapi-codegen v1.12.4
 	github.com/getkin/kin-openapi v0.114.0
 	github.com/golang-migrate/migrate/v4 v4.15.2
@@ -17,6 +16,7 @@ require (
 
 require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
+	github.com/brianvoe/gofakeit/v6 v6.20.1 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/swag v0.21.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect

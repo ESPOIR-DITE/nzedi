@@ -7,8 +7,8 @@ import (
 )
 
 type Company struct {
-	Id        int `gorm:"primarykey"`
-	Manager   int
+	Id        string `gorm:"primarykey"`
+	Manager   string
 	Name      string
 	Url       *string
 	CreatedAt time.Time
@@ -16,8 +16,12 @@ type Company struct {
 }
 
 func (c Company) GetCompany() *entity.Company {
-	//TODO implement me
-	panic("implement me")
+	return &entity.Company{
+		Id:      c.Id,
+		Manager: c.Manager,
+		Name:    c.Name,
+		Url:     c.Url,
+	}
 }
 
 var _ models.Company = Company{}

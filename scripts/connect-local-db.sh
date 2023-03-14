@@ -1,0 +1,1 @@
+PGPASSWORD=root psql -h localhost -U root nzedi_eshop

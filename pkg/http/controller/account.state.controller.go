@@ -7,7 +7,6 @@ import (
 	"github.com/ESPOIR-DITE/nzedi.git/pkg/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func (n NzediApiController) DeleteAccountState(ctx echo.Context) error {
@@ -16,7 +15,7 @@ func (n NzediApiController) DeleteAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -45,7 +44,7 @@ func (n NzediApiController) PatchAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -65,7 +64,7 @@ func (n NzediApiController) PostAccountState(ctx echo.Context) error {
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&state); err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}
-	if state.Id < 0 {
+	if state.Id == "" {
 		return ctx.JSON(http.StatusBadRequest, errors.New("missing required value"))
 	}
 	entityAccount, err := n.AccountStateFactory.CreateAccountState(state)
@@ -81,11 +80,7 @@ func (n NzediApiController) PostAccountState(ctx echo.Context) error {
 
 func (n NzediApiController) GetAccountStateId(ctx echo.Context, id string) error {
 	logger.Log.Info("Account state received get operation.")
-	accountStateId, err := strconv.Atoi(id)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err)
-	}
-	deleteResult, err := n.AccountStateService.ReadAccountState(accountStateId)
+	deleteResult, err := n.AccountStateService.ReadAccountState(id)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err)
 	}

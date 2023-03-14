@@ -6,8 +6,8 @@ import (
 
 type UserService interface {
 	CreateUser(User entity.User) (*entity.User, error)
-	ReadUser(id int) (*entity.User, error)
-	ReadUserWithAccountId(id int) (*entity.User, error)
+	ReadUser(id string) (*entity.User, error)
+	ReadUserWithAccountId(id string) (*entity.User, error)
 	UpdateUser(User entity.User) (*entity.User, error)
 	DeleteUser(User entity.User) (bool, error)
 	ReadUserAll() ([]entity.User, error)

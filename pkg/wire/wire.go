@@ -33,6 +33,8 @@ func wire(config config.ServiceConfiguration, db *gorm.DB) server.HttpServer {
 	companyService := impl.NewCompanyServiceImpl(companyRepository)
 	userTypeService := impl.NewUserTypeServiceImpl(userTypeRepository)
 	userService := impl.NewUserServiceImpl(userRepository)
+	securityService := impl.NewJwtSecurityService(accountService)
+	authenticationService := impl.NewAuthenticationServiceImpl(accountService, securityService)
 
 	accountFactoryImpl := factory.NewAccountFactoryImpl()
 	accountTypeFactoryImpl := factory.NewAccountTypeFactoryImpl()
@@ -42,12 +44,13 @@ func wire(config config.ServiceConfiguration, db *gorm.DB) server.HttpServer {
 	userTypeFactoryImpl := factory.NewUserTypeFactoryImpl()
 
 	controller := controller2.NzediApiController{
-		AccountService:      accountService,
-		AccountStateService: accountStateService,
-		AccountTypeService:  accountTypeService,
-		CompanyService:      companyService,
-		UserTypeService:     userTypeService,
-		UserService:         userService,
+		AccountService:        accountService,
+		AccountStateService:   accountStateService,
+		AccountTypeService:    accountTypeService,
+		CompanyService:        companyService,
+		UserTypeService:       userTypeService,
+		UserService:           userService,
+		AuthenticationService: authenticationService,
 
 		AccountFactory:      accountFactoryImpl,
 		AccountStateFactory: accountStateFactoryImpl,

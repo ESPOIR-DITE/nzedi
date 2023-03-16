@@ -7,7 +7,7 @@ import (
 )
 
 const ISO8601 = "2006-01-02T15:04:05Z0700"
-const YYYYMMDD = "2006-02-01"
+const YYYYMMDD = "2006-01-02"
 
 type UserFactory interface {
 	CreateUser(body spec.User) (*entity.User, error)

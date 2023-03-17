@@ -44,7 +44,7 @@ func initMiddleware(e *echo.Echo) error {
 }
 func initCORS(e *echo.Echo) {
 	e.Use(echomiddleware.CORSWithConfig(echomiddleware.CORSConfig{
-		AllowOrigins: []string{"*", "http://172.20.0.2:3004", "http://172.19.0.2:3003"},
+		AllowOrigins: []string{"*", "http://localhost:3004", "http://localhost:3003", "http://74.208.50.103:3003", "http://74.208.50.103:3004"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization},
 	}))
 }
